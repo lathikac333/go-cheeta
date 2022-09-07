@@ -1,9 +1,10 @@
-package com.dao;
+package com.business.dao;
 
 import com.dto.request.*;
 import com.dto.response.GeneralResponse;
 import com.dto.response.LocationRes;
 import com.dto.response.TripRes;
+import com.dto.response.BranchDetailRes;
 
 import java.util.List;
 
@@ -61,4 +62,8 @@ public interface TripDAO {
      * @return
      */
     List<LocationRes> getLocationListByCity(GetLocationByCityReq getLocationByCityReq);
+
+    List<BranchDetailRes> getBranchDetail( );
+
+
 }

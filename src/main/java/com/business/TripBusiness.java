@@ -1,6 +1,7 @@
 package com.business;
 
 import com.dto.request.*;
+import com.dto.response.BranchDetailRes;
 import com.dto.response.GeneralResponse;
 import com.dto.response.LocationRes;
 import com.dto.response.TripRes;
@@ -61,4 +62,6 @@ public interface TripBusiness {
      * @return
      */
     List<LocationRes> getLocationListByCity(GetLocationByCityReq getLocationByCityReq);
+
+    List<BranchDetailRes> GetBranches();
 }

@@ -10,22 +10,29 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <div class="d-flex" id="wrapper">
     <!-- Sidebar-->
     <div class="border-end bg-white" id="sidebar-wrapper">
-        <div class="sidebar-heading border-bottom bg-light">Customer Panel</div>
-        <div class="list-group list-group-flush">
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Book Ride</a>
+        <div class="sidebar-heading border-bottom bg-light w3-blue">Customer Panel</div>
+        <div class="list-group list-group-flush" style="z-index:3; width:230px;">
+            <a class="list-group-item list-group-item-action list-group-item-light" href="#Home">Book a Ride</a>
+            <a class="list-group-item list-group-item-action list-group-item-light" href="#_onGoingRide">On Going Ride</a>
+            <a class="list-group-item list-group-item-action list-group-item-light" href="#_userHistory">History</a>
+            <a class="list-group-item list-group-item-action list-group-item-light" href="#_updatedetails">Change My Details</a>
         </div>
     </div>
+
     <!-- Page content wrapper-->
     <div id="page-content-wrapper">
         <!-- Top navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
             <div class="container-fluid">
-                <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
+                <button class="btn btn-primary" id="sidebarToggle"> Menu</button>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
@@ -38,11 +45,51 @@
                 </div>
             </div>
         </nav>
+        <div class="container-fluid"><br></div>
         <!-- Page content-->
+        <!-- Book a Ride-->
         <div class="container-fluid">
-            <h1 class="mt-4">Book Ride</h1>
+            <div class="w3-container w3-card w3-white">
+                <header class="w3-container" style="padding-top:22px">
+                    <h5><b><i class="fa fa-dashboard"></i> Book a Ride </b></h5>
+                </header>
+                <div class="w3-row-padding w3-padding-16">
+                        <div class="w3-half">
+                            <label>Source Location</label>
+                            <select class="form-select" aria-label="Default select example" id="sloc" name="location">
+                                <option selected>Select</option>
+                            </select>
+                        </div>
 
-            <div class="bs-example">
+                        <div class="w3-half">
+                            <label>Destination Location</label>
+                            <select class="form-select" aria-label="Default select example" id="dloc" name="doc">
+                                <option selected>Select</option>
+                            </select>
+                        </div>  
+                </div>
+
+                <div class="w3-row-padding w3-padding-16">
+                    <div class="w3-half">
+                        <label>TravelDateTime</label>
+                        <input class="w3-input w3-border" type="datetime-local" id="travelDateTime" name="travelDateTime">
+                        
+                    </div>
+
+                    <div class="w3-half">
+                        <label>Select Branch</label>
+                        <select class="form-select" aria-label="Default select example" id="branch" name="branch">
+                            <option selected>Select</option>
+                        </select>
+                    </div> 
+                </div>
+                
+                <div class="col-xs-offset-2 col-xs-10" style="padding-bottom:20px;">
+                    <button type="submit" class="btn btn-primary w3-block" style="height: 50px;">Book</button>
+                </div>
+
+
+        <!--    <div class="bs-example">
                 <form class="form-horizontal">
 
                     <div class="form-group">
@@ -86,9 +133,133 @@
                         </div>
                     </div>
                 </form>
+            </div> -->
+                <a class="btn w3-button" style="margin-bottom: 10px;" href="#Top">Go to Top</a>
+            </div>
+
+        </div>        
+
+        <!-- On Going Ride -->
+        <div id="_onGoingRide"><br></div>   
+        <div  class="container-fluid">
+            <div class="w3-container w3-card w3-white">
+                <header class="w3-container" style="padding-top:22px">
+                    <h5><b><i class="fa fa-dashboard"></i> On Going Ride </b></h5>
+                </header>
+                <table style="width:100%">
+                    <tr>
+                        <th></th>
+                      </tr>
+                    <tr>
+                        <td>
+                            <div class="w3-container">
+                                <h5 class="w3-opacity"><b>W3Schools.com</b></h5>
+                                <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>
+                                <p>Web Development! All I need to know in one place</p>
+                                <hr>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="w3-container">
+                                <h5 class="w3-opacity"><b>London Business School</b></h5>
+                                <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2013 - 2015</h6>
+                                <p>Master Degree</p>
+                                <hr>
+                              </div>
+                        </td>
+                    </tr>
+                </table>
+                <a class="btn w3-button" style="margin-bottom: 10px;" href="#Top">Go to Top</a>
+            </div>  
+        </div> 
+
+        <!-- History -->
+        <div id="_userHistory"><br></div>   
+        <div  class="container-fluid">
+            <div class="w3-container w3-card w3-white">
+                <header class="w3-container" style="padding-top:22px">
+                    <h5><b><i class="fa fa-dashboard"></i> History </b></h5>
+                </header>
+                <table style="width: 100%; margin-bottom: 50px;">
+                    <tr class="w3-dark-grey w3-center w3-xlarge">
+                        <th >User Detail ID</th>
+                        <th >First Name</th>
+                        <th >Last Name</th>
+                        <th >Email Address</th>
+                        <th >Address</th>
+                        <th >Mobile Number</th>
+                        <th >User Type</th>
+                    </tr>
+                    <tr class=" w3-center ">
+                        <td>Floorplanning</td> <td>10 hours support</td>
+                        <td>10 hours support</td>   <td>10 hours support</td>
+                        <td>10 hours support</td>   <td>10 hours support</td>
+                        <td>10 hours support</td>
+                    </tr>
+                    <tr class="w3-center">
+                        <td >55</td> <td >55</td>
+                        <td >55</td> <td>55</td>
+                        <td >55</td> <td>55</td>
+                        <td>55</td>
+                    </tr>
+                    <tr class="w3-center">
+                        <td >55</td><td >55</td><td >55</td>
+                        <td>55</td><td>55</td><td >55</td>
+                        <td >55</td>
+                    </tr>
+                </table>
+                <a class="btn w3-button" style="margin-bottom: 10px;" href="#Top">Go to Top</a>
+            </div>  
+        </div>  
+
+        <!-- Update Details -->
+        <div id="_updatedetails"><br></div>   
+        <div  class="container-fluid">
+            <div class="w3-container w3-card w3-white">
+                <header class="w3-container" style="padding-top:22px">
+                    <h5><b><i class="fa fa-dashboard"></i> Update My Details </b></h5>
+                </header>
+                <div class="w3-row-padding w3-padding-16">
+                    <div class="w3-half">
+                        <label>First Name</label>
+                        <input class="w3-input w3-border" type="text" name="FirstName" required placeholder="">
+                    </div>
+                    <div class="w3-half">
+                        <label>Last Name</label>
+                        <input class="w3-input w3-border" type="text" name="lastName" required placeholder="">
+                    </div>
+                </div>
+                <div class="w3-row-padding w3-padding-16">
+                    <div class="w3-half">
+                        <label>Email Address</label>
+                        <input class="w3-input w3-border" type="text" name="EmailAddress" required placeholder="">
+                    </div>
+                    <div class="w3-half">
+                        <label>Address</label>
+                        <input class="w3-input w3-border" type="text" name="Address" required placeholder="">
+                    </div>
+                </div>
+                <div class="w3-row-padding w3-padding-16">
+                    <div class="w3-half">
+                        <label>Mobile Number</label>
+                        <input class="w3-input w3-border" type="text" name="MobileNumber" required placeholder="">
+                    </div>
+                    <div class="w3-half">
+                        <label>User Password</label>
+                        <input class="w3-input w3-border" type="text" name="UserPassword" required placeholder="">
+                    </div>
+                </div>
+                <div style="padding-bottom:20px;">
+                    <button type="submit" class="w3-button w3-block w3-dark-grey">Update Details</button>
+                </div> 
+                <a class="btn w3-button" style="margin-bottom: 10px;" href="#Top">Go to Top</a>
             </div>
 
         </div>
+
+        <div class="container-fluid"><br></div>
     </div>
 </div>
 <!-- Bootstrap core JS-->
@@ -97,44 +268,65 @@
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="js/scripts.js"></script>
 <script>
-    $( document ).ready(function() {
+$( document ).ready(function() {
         var userId = localStorage.getItem("userId");
-        if(userId == 0){
-            window.location.href="index.html";
-        }
+        if(userId == 0){ window.location.href="index.html";}
         sourceLoc();
+		sourceBranch();
 
     });
-        function simple(){
-        console.log('hi');
-            var name=localStorage.getItem("userId");
-            console.log(name);
-        }
-        function logout(){
-            localStorage.setItem("userId", 0);
-        }
 
-        function sourceLoc(){
+	function simple(){
+		console.log('hi');
+        var name=localStorage.getItem("userId");
+        console.log(name);
+    }
+
+	function logout(){
+        localStorage.setItem("userId", 0);
+    }
+
+
+    function sourceLoc(){
         $.ajax({
-         url: 'http://localhost:8085/trip/location/list',
-         type: 'POST',
-         headers: {
-          "Content-Type": "application/json"
-           },
-         dataType:'json',
-         success: function (data) {
-             console.log(data);
-             if(data.statusCode == 1000){
-             var obj = data.data;
-                 $.each(obj, function(k, v) {
-                     var displayVal = v.streetAddress + " - " +v.city;
-                    $('#sloc').append('<option value="' + v.locationId + '">' + displayVal + '</option>');
-                 });
-             }
-         }
-        });
- }
+        url: 'http://localhost:8085/trip/location/list',
+        type: 'POST',
+        headers: { "Content-Type": "application/json" },
+        dataType:'json',
+        success: function (data)
+		{
+			console.log(data);
+            if(data.statusCode == 1000){
+            var obj = data.data;
+            $.each(obj, function(k, v)
+			{
+				var displayVal = v.streetAddress + " - " +v.city;
+                $('#sloc').append('<option value="' + v.locationId + '">' + displayVal + '</option>');
+                $('#dloc').append('<option value="' + v.locationId + '">' + displayVal + '</<option>');
+            });}
+        }});
+	}
 
+    function sourceBranch()
+    {
+        $.ajax({
+        url: 'http://localhost:8085/trip/branches/list',
+        type: 'POST',
+        headers: { "Content-Type": "application/json" },
+        dataType:'json',
+        success: function (data)
+        {
+			console.log(data);
+            if(data.statusCode == 1000){
+            var obj = data.data;
+            $.each(obj, function(k, v)
+			{
+				var displayVal = v.BranchName;
+                $('#branch').append('<option value="' + v.BranchId + '">' + displayVal + '</option>');
+            });}
+        }});
+
+    }
 
 </script>
 </body>

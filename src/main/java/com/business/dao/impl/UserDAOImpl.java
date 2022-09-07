@@ -1,6 +1,6 @@
-package com.dao.impl;
+package com.business.dao.impl;
 
-import com.dao.UserDAO;
+import com.business.dao.UserDAO;
 import com.dto.request.CustomerLoginReq;
 import com.dto.request.DriverRegistrationReq;
 import com.dto.request.UserRegistrationReq;
@@ -15,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;

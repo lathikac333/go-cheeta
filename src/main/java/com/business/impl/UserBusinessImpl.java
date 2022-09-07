@@ -1,7 +1,7 @@
 package com.business.impl;
 
 import com.business.UserBusiness;
-import com.dao.UserDAO;
+import com.business.dao.UserDAO;
 import com.dto.request.CustomerLoginReq;
 import com.dto.request.DriverRegistrationReq;
 import com.dto.request.UserRegistrationReq;

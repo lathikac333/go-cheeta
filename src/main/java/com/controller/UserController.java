@@ -26,4 +26,5 @@ public interface UserController {
      * @return
      */
     public GeneralResponse driverRegistration(DriverRegistrationReq driverRegistrationReq);
+
 }

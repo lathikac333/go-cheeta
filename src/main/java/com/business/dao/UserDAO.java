@@ -1,4 +1,4 @@
-package com.dao;
+package com.business.dao;
 
 import com.dto.request.CustomerLoginReq;
 import com.dto.request.DriverRegistrationReq;
@@ -25,4 +25,6 @@ public interface UserDAO {
     public int userLogin(CustomerLoginReq customerLoginReq);
 
     CommonResponse driverRegistration(DriverRegistrationReq driverRegistrationReq);
+
+
 }

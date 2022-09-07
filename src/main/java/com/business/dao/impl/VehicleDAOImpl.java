@@ -1,6 +1,6 @@
-package com.dao.impl;
+package com.business.dao.impl;
 
-import com.dao.VehicleDAO;
+import com.business.dao.VehicleDAO;
 import com.dto.request.GetVehicleDetailReq;
 import com.dto.request.VehicleCategoryReq;
 import com.dto.request.VehicleDetailReq;

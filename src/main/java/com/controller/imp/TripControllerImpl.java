@@ -3,6 +3,7 @@ package com.controller.imp;
 import com.business.TripBusiness;
 import com.controller.TripController;
 import com.dto.request.*;
+import com.dto.response.BranchDetailRes;
 import com.dto.response.GeneralResponse;
 import com.dto.response.LocationRes;
 import com.dto.response.TripRes;
@@ -70,6 +71,20 @@ public class TripControllerImpl implements TripController {
     @PostMapping("/trip/location/by/city")
     public GeneralResponse getLocationListByCity(@RequestBody GetLocationByCityReq getLocationByCityReq) {
         List<LocationRes> list = tripBusiness.getLocationListByCity(getLocationByCityReq);
+        return GeneralResponse.generateResponse(list,1000,"Success");
+    }
+
+   /* @Override
+    @PostMapping("/trip/branches")
+    public GeneralResponse getBranchList(@RequestBody BranchDetailsReq BranchDetails); {
+        List<BranchDetailsReq> list = tripBusiness.GetBranches(BranchDetails);
+        return GeneralResponse.generateResponse(list,1000,"Success");
+    }   */
+
+    @Override
+    @PostMapping("/trip/branches/list")
+    public GeneralResponse getBranchList(@RequestBody BranchDetailsReq BranchDetails) {
+        List<BranchDetailRes> list = tripBusiness.GetBranches();
         return GeneralResponse.generateResponse(list,1000,"Success");
     }
 }

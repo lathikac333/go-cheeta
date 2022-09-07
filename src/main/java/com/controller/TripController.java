@@ -57,4 +57,6 @@ public interface TripController {
      * @return
      */
     public GeneralResponse getLocationListByCity(GetLocationByCityReq getLocationByCityReq);
+
+    public GeneralResponse getBranchList(BranchDetailsReq BranchDetails);
 }

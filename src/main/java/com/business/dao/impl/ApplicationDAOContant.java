@@ -1,4 +1,4 @@
-package com.dao.impl;
+package com.business.dao.impl;
 
 public class ApplicationDAOContant {
     interface IVehicle{

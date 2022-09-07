@@ -1,8 +1,9 @@
 package com.business.impl;
 
 import com.business.TripBusiness;
-import com.dao.TripDAO;
+import com.business.dao.TripDAO;
 import com.dto.request.*;
+import com.dto.response.BranchDetailRes;
 import com.dto.response.GeneralResponse;
 import com.dto.response.LocationRes;
 import com.dto.response.TripRes;
@@ -54,5 +55,10 @@ public class TripBusinessImpl implements TripBusiness {
     @Override
     public List<LocationRes> getLocationListByCity(GetLocationByCityReq getLocationByCityReq) {
         return tripDAO.getLocationListByCity(getLocationByCityReq);
+    }
+
+    @Override
+    public List<BranchDetailRes> GetBranches( ) {
+        return tripDAO.getBranchDetail();
     }
 }

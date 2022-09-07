@@ -2,6 +2,7 @@ package com.controller.imp;
 
 import com.business.UserBusiness;
 import com.controller.UserController;
+import com.dto.request.BranchDetailsReq;
 import com.dto.request.CustomerLoginReq;
 import com.dto.request.DriverRegistrationReq;
 import com.dto.request.UserRegistrationReq;
@@ -36,4 +37,6 @@ public class UserControllerImpl implements UserController {
     public GeneralResponse driverRegistration(@RequestBody DriverRegistrationReq driverRegistrationReq) {
         return userBusiness.driverRegistration(driverRegistrationReq);
     }
+
+
 }

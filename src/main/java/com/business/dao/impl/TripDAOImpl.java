@@ -1,6 +1,6 @@
-package com.dao.impl;
+package com.business.dao.impl;
 
-import com.dao.TripDAO;
+import com.business.dao.TripDAO;
 import com.dto.request.*;
 import com.dto.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,4 +144,38 @@ public class TripDAOImpl implements TripDAO {
         }
         return list;
     }
+
+    @Override
+    public List<BranchDetailRes> getBranchDetail()
+    {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        List<BranchDetailRes> list = new ArrayList<>();
+        try {
+            connection = DataSourceUtils.getConnection(jdbcTemplate.getDataSource());
+            statement = connection.createStatement();
+            String query = "select * from branch " ;
+            resultSet = statement.executeQuery(query);
+            while (resultSet.next()){
+                BranchDetailRes res = new BranchDetailRes();
+                res.setBranchId(resultSet.getInt(1));
+                res.setBranchName(resultSet.getString(2));
+                list.add(res);
+            }
+        }catch (SQLException exception){
+
+        }catch (Exception exception){
+
+        }finally {
+            try {
+                connection.close();
+                statement.close();
+            } catch (SQLException e) {
+            }
+        }
+        return list;
+    }
+
+
 }
