@@ -1,4 +1,4 @@
-package com.business.dao.impl;
+package com.dao.impl;
 
 public class ApplicationDAOContant {
     interface IVehicle{
@@ -24,5 +24,15 @@ public class ApplicationDAOContant {
         String TRIP_DETAIL = "";
         String GET_LOCATIONS = "select LocationId,StreetAddress,City from location";
         String GET_LOCATIONS_BY_CITY = "select LocationId, StreetAddress from location where City = ";
+
+        String Get_BranchName = "select BranchName from branch";
+    }
+
+    interface iCustomer{
+
+        String selectedcustomerDetails = "select * from userdetail where UserDetailId = ";
+        String selecteduserTripHistory = "select * from trip where UserDetailid = ";
+        String selectedcustomerCurrentTrip = "";
+        String updateCustomerDetails = "";
     }
 }

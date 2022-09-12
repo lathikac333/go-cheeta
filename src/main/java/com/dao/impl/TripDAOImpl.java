@@ -1,8 +1,10 @@
-package com.business.dao.impl;
+package com.dao.impl;
 
-import com.business.dao.TripDAO;
+import com.dao.TripDAO;
 import com.dto.request.*;
 import com.dto.response.*;
+import com.fasterxml.jackson.core.sym.Name;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -21,6 +23,7 @@ public class TripDAOImpl implements TripDAO {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+    
     @Override
     @Transactional
     public GeneralResponse createNewTrip(CreateTripReq createTripReq) {
@@ -155,7 +158,7 @@ public class TripDAOImpl implements TripDAO {
         try {
             connection = DataSourceUtils.getConnection(jdbcTemplate.getDataSource());
             statement = connection.createStatement();
-            String query = "select * from branch " ;
+            String query = "select BranchId,BranchName from branch" ;
             resultSet = statement.executeQuery(query);
             while (resultSet.next()){
                 BranchDetailRes res = new BranchDetailRes();
@@ -175,6 +178,40 @@ public class TripDAOImpl implements TripDAO {
             }
         }
         return list;
+    }
+
+    /* (non-Javadoc)
+     * @see com.dao.TripDAO#getBarchName()
+     */
+    @Override
+    public String getBarchName() {
+        // TODO Auto-generated method stub
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String Name = new String();
+        try {
+            connection = DataSourceUtils.getConnection(jdbcTemplate.getDataSource());
+            statement = connection.createStatement();
+            //String query = "select BranchName from branch" ;
+            resultSet = statement.executeQuery(ApplicationDAOContant.ITrip.Get_BranchName);
+            while (resultSet.next()){
+                BranchDetailRes res = new BranchDetailRes();
+                res.setBranchName(resultSet.getString(1));
+                Name = res.getBranchName();
+            }
+        }catch (SQLException exception){
+
+        }catch (Exception exception){
+
+        }finally {
+            try {
+                connection.close();
+                statement.close();
+            } catch (SQLException e) {
+            }
+        }
+        return Name;
     }
 
 

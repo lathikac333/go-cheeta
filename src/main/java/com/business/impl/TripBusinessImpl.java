@@ -1,7 +1,7 @@
 package com.business.impl;
 
 import com.business.TripBusiness;
-import com.business.dao.TripDAO;
+import com.dao.TripDAO;
 import com.dto.request.*;
 import com.dto.response.BranchDetailRes;
 import com.dto.response.GeneralResponse;

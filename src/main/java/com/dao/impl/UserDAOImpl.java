@@ -1,6 +1,6 @@
-package com.business.dao.impl;
+package com.dao.impl;
 
-import com.business.dao.UserDAO;
+import com.dao.UserDAO;
 import com.dto.request.CustomerLoginReq;
 import com.dto.request.DriverRegistrationReq;
 import com.dto.request.UserRegistrationReq;

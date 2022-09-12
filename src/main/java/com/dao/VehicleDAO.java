@@ -1,4 +1,4 @@
-package com.business.dao;
+package com.dao;
 
 import com.dto.request.GetVehicleDetailReq;
 import com.dto.request.VehicleCategoryReq;

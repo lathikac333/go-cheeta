@@ -9,6 +9,7 @@ import com.dto.response.CommonResponse;
 import com.dto.response.GeneralResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,7 +52,7 @@ public class VehicleControllerImpl implements VehicleController {
     }
 
     @Override
-    @PostMapping("/vehicle/get/detail/list")
+    @GetMapping("/vehicle/get/detail/list")
     public GeneralResponse getVehicleDetails() {
         return GeneralResponse.generateResponse(vehicleBusiness.getVehicleDetails(),1000,"Success");
     }

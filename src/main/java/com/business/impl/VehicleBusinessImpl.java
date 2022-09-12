@@ -1,7 +1,7 @@
 package com.business.impl;
 
 import com.business.VehicleBusiness;
-import com.business.dao.VehicleDAO;
+import com.dao.VehicleDAO;
 import com.dto.request.GetVehicleDetailReq;
 import com.dto.request.VehicleCategoryReq;
 import com.dto.request.VehicleDetailReq;

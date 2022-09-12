@@ -2,6 +2,7 @@ package com.controller.imp;
 
 import com.business.TripBusiness;
 import com.controller.TripController;
+import com.dao.TripDAO;
 import com.dto.request.*;
 import com.dto.response.BranchDetailRes;
 import com.dto.response.GeneralResponse;
@@ -9,6 +10,7 @@ import com.dto.response.LocationRes;
 import com.dto.response.TripRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +23,21 @@ public class TripControllerImpl implements TripController {
 
     @Autowired
     TripBusiness tripBusiness;
+    TripDAO tripDAO;
+
+    @Override
+    @GetMapping("/tp")
+    public String GetPage()
+    {
+        return "Hello Trip";
+    }
+
+    @Override
+    @GetMapping("/trip/test")
+    public String Testing()
+    {
+        return "Testing ";
+    }
 
     @Override
     @PostMapping("/trip/create")
@@ -61,7 +78,7 @@ public class TripControllerImpl implements TripController {
     }
 
     @Override
-    @PostMapping("/trip/location/list")
+    @GetMapping("/trip/location/list")
     public GeneralResponse getLocationList() {
         List<LocationRes> list = tripBusiness.getLocationList();
         return GeneralResponse.generateResponse(list,1000,"Success");
@@ -82,9 +99,17 @@ public class TripControllerImpl implements TripController {
     }   */
 
     @Override
-    @PostMapping("/trip/branches/list")
-    public GeneralResponse getBranchList(@RequestBody BranchDetailsReq BranchDetails) {
+    @GetMapping("/trip/branches/list")
+    public GeneralResponse  getBranchList() {
         List<BranchDetailRes> list = tripBusiness.GetBranches();
         return GeneralResponse.generateResponse(list,1000,"Success");
+    }
+
+    @Override
+    @GetMapping("/branch/name")
+    public GeneralResponse getBranchName() {
+        // TODO Auto-generated method stub
+        String nn = tripDAO.getBarchName();
+        return GeneralResponse.generateResponse(nn, 1000, "Success");
     }
 }

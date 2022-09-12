@@ -63,5 +63,6 @@ public interface TripBusiness {
      */
     List<LocationRes> getLocationListByCity(GetLocationByCityReq getLocationByCityReq);
 
+    
     List<BranchDetailRes> GetBranches();
 }

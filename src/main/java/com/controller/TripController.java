@@ -4,6 +4,14 @@ import com.dto.request.*;
 import com.dto.response.GeneralResponse;
 
 public interface TripController {
+    
+    /**
+     * createNewTrip
+     * @return
+     */
+    public String GetPage();
+
+    public String Testing();
     /**
      * createNewTrip
      * @param createTripReq
@@ -58,5 +66,11 @@ public interface TripController {
      */
     public GeneralResponse getLocationListByCity(GetLocationByCityReq getLocationByCityReq);
 
-    public GeneralResponse getBranchList(BranchDetailsReq BranchDetails);
+    /**
+     * getBranchList
+     * @return
+     */
+    public GeneralResponse getBranchList();
+
+    public GeneralResponse getBranchName();
 }
