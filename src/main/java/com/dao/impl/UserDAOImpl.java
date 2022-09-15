@@ -90,6 +90,34 @@ public class UserDAOImpl implements UserDAO {
         return registrationRes;
     }
 
+    public UserRegistrationRes getbranchid(int userrid)
+    {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        UserRegistrationRes registrationRes = null;
+        try {
+            String SELECT_driverbyuser = "select * from driver where UserDetailId = '"+userrid+"'";
+            connection = DataSourceUtils.getConnection(jdbcTemplate.getDataSource());
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(SELECT_driverbyuser);
+            while (resultSet.next()){
+                registrationRes = new UserRegistrationRes();
+                registrationRes.setBranchID(resultSet.getInt("BranchId"));
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }catch (Exception exception) {
+            exception.printStackTrace();
+        }finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {}
+        }
+        return registrationRes;
+    }
+
+
     public String passcodeEncrypt(String passcode) throws NoSuchAlgorithmException, IOException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -128,7 +156,6 @@ public class UserDAOImpl implements UserDAO {
         CommonResponse commonResponse = new CommonResponse();
         Connection connection = null;
         CallableStatement callableStatement = null;
-        ResultSet resultSet = null;
         try {
             connection = DataSourceUtils.getConnection(jdbcTemplate.getDataSource());
             String CREATE_DRIVER = "{call insert_update_driver(?,?,?,?,?,?,?,?,?,?,?)}";

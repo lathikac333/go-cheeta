@@ -1,10 +1,11 @@
-package com.dao;
+package com.business;
 
 import java.util.List;
 
-import com.dto.response.*;
+import com.dto.response.TripDetails;
+import com.dto.response.UserDTO;
 
-public interface CustomerDao {
+public interface CustomerB {
     
     public UserDTO SelectedUserDtl(int userreq);
 

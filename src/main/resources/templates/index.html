@@ -183,6 +183,8 @@ color:#fff;
 
 </div>
 
+<a href="customer">Customer</a>
+
 <script>
 
 var button = document.getElementById('btnsignup');
@@ -220,7 +222,7 @@ $('#signupform').submit(function(e){
     console.log(values);
 
     $.ajax({
-         url: 'http://localhost:8085/create/customer',
+         url: 'http://localhost:8080/create/customer',
          type: 'POST',
          headers: {
           "Content-Type": "application/json"
@@ -252,7 +254,7 @@ $('#signinform').submit(function(e){
     console.log(values);
 
     $.ajax({
-         url: 'http://localhost:8085/login/user',
+         url: 'http://localhost:8080/login/user',
          type: 'POST',
          headers: {
           "Content-Type": "application/json"
@@ -263,21 +265,45 @@ $('#signinform').submit(function(e){
              console.log(data);
              if(data.statusCode == 1000){
                 alert(data.message);
-                if(data.data.userType == 2){
-                    localStorage.setItem("userId", data.data.userId);
-                    window.location.href="customer.html";
+                localStorage.setItem("userId", data.data.userId);
+                localStorage.setItem("branchID", data.data.branchID);
+
+                switch(data.data.userType) 
+                {
+                    case 1:
+                        localStorage.setItem("userId", data.data.userId);
+                        window.location.href="admin";
+                            break;
+                    case 2:
+                        localStorage.setItem("userId", data.data.userId);
+                        window.location.href="customer";
+                            break;
+                    case 3:
+                        localStorage.setItem("userId", data.data.userId);
+                        window.location.href="driver";
+                            break;
+                    default:
+                        alert(data.userType + "Usertype");
                 }
-                if(data.userType == 1){
+
+                /*if(data.userType == 1){
                     localStorage.setItem("userId", data.data.userId);
-                    window.location.href="admin.html";
-                }
-                if(data.userType == 3){
+                    window.location.href="admin";
+                
+                } 
+                else if(data.data.userType == 2){
                     localStorage.setItem("userId", data.data.userId);
-                    window.location.href="driver.html";
+                    window.location.href="customer";
                 }
-             }else{
+                else if(data.userType == 3){
+                    localStorage.setItem("userId", data.data.userId);
+                    window.location.href="driver";
+                }*/
+            }
+            else
+            {
                 alert(data.message);
-             }
+            }
          }
      });
     console.log('end');

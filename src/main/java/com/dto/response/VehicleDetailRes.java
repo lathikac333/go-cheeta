@@ -1,7 +1,5 @@
 package com.dto.response;
 
-import com.dto.request.VehicleDetailReq;
-
 public class VehicleDetailRes{
     private int vehicleDetailId;
     private String brandName;

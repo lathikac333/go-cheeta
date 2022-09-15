@@ -43,14 +43,29 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                        <li class="nav-item active"><a class="nav-link" href="index.html" onclick="logout();">Logout</a>
+                        <li class="nav-item active"><a class="nav-link" href="index" onclick="logout();">Logout</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <!-- Current Trip -->  
+        <!-- Curent Trip -->  
+        <div id="_tripRequest"><br></div>                          
+        <div class="container-fluid">
+            <div class="w3-container w3-card w3-white">
+                <header class="w3-container" style="padding-top:22px">
+                    <h5><b><i class="fa fa-dashboard"></i>  Current Trip </b></h5>
+                </header>                        
+                <table style="width:100%">
+                    <tbody id="curenttrip">
+                    </tbody>
+                </table>
+                <a class="btn w3-button" style="margin:10px 0px;" href="#Top">Go to Top</a>
+            </div>
+        </div> 
+
+        <!-- Request Trip -->  
         <div id="_tripRequest"><br></div>                          
         <div class="container-fluid">
             <div class="w3-container w3-card w3-white">
@@ -58,29 +73,8 @@
                     <h5><b><i class="fa fa-dashboard"></i>  Trip Request </b></h5>
                 </header>                        
                 <table style="width:100%">
-                    <tr>
-                        <th></th>
-                      </tr>
-                    <tr>
-                        <td>
-                            <div class="w3-container">
-                                <h5 class="w3-opacity"><b>W3Schools.com</b></h5>
-                                <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>
-                                <p>Web Development! All I need to know in one place</p>
-                                <hr>
-                              </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="w3-container">
-                                <h5 class="w3-opacity"><b>London Business School</b></h5>
-                                <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2013 - 2015</h6>
-                                <p>Master Degree</p>
-                                <hr>
-                              </div>
-                        </td>
-                    </tr>
+                    <tbody id="tripRequest">
+                    </tbody>
                 </table>
                 <a class="btn w3-button" style="margin:10px 0px;" href="#Top">Go to Top</a>
             </div>
@@ -95,23 +89,14 @@
                 </header>
                 <table style="width: 100%; margin-bottom: 50px;">
                     <tr class="w3-dark-grey w3-center w3-xlarge">
-                        <th >Driver ID</th>
-                        <th >User Detail ID</th>
-                        <th >Vehicle Detail ID</th>
-                        <th >Branch ID</th>
+                        <th >Source</th>
+                        <th >Desination</th>
+                        <th >Date Time</th>
+                        <th >Fare</th>
+                        <th >Status</th>
+                        <th >Branch</th>
                     </tr>
-                    <tr class=" w3-center" id="dhisList">
-                        <td>Floorplanning</td> <td>10 hours support</td>
-                        <td>10 hours support</td>   <td>10 hours support</td>
-                    </tr>
-                    <tr class="w3-center">
-                        <td >55</td> <td >55</td>
-                        <td >55</td> <td>55</td>
-                    </tr>
-                    <tr class="w3-center">
-                        <td >55</td><td >55</td><td >55</td>
-                        <td>55</td>
-                    </tr>
+                    <tbody class="w3-center" id="dhisList"></tbody>
                 </table>
                 <a class="btn w3-button" style="margin-bottom: 10px;" href="#Top">Go to Top</a>
             </div>  
@@ -125,24 +110,47 @@
                         <header class="w3-container" style="padding-top:22px">
                             <h5><b><i class="fa fa-dashboard"></i>  Driver Details </b></h5>
                         </header>
+                        <form id="driverdetail">
+                            <div class="w3-row-padding w3-padding-16">
+                                <div class="w3-half">
+                                    <label>Driver ID</label>
+                                    <input class="w3-input w3-border" disabled="true" type="text" id="ddriverid" name="riverid" >
+                                </div>
+                                <div class="w3-half">
+                                    <label>Vehile</label>
+                                    <select class="w3-input w3-border" aria-label="Default select example" id="dvehileid" name="vehileid">
+                                        <option selected id="seletsveh">Select</option>
+                                    </select>
+                                </div>
+                            </div>
                         <div class="w3-row-padding w3-padding-16">
                             <div class="w3-half">
-                                <label>Driver ID</label>
-                                <h4 class="w3-input " > Mike W</h4>
+                                <label>First Name</label>
+                                <input class="w3-input w3-border" disabled="true" type="text" id="dFirstName" name="FirstName" >
                             </div>
                             <div class="w3-half">
-                                <label>User Detail ID</label>
-                                <h4 class="w3-input">078 945 6123</h4>
+                                <label>Last Name</label>
+                                <input class="w3-input w3-border" disabled="true" type="text" id="dlastName" name="lastName" >
                             </div>
                         </div>
                         <div class="w3-row-padding w3-padding-16">
                             <div class="w3-half">
-                                <label>Vehicle Detail ID</label>
-                                <h4 class="w3-input " > Mike W</h4>
+                                <label>Email</label>
+                                <input class="w3-input w3-border" disabled="true" type="text" id="dEmailAddress" name="EmailAddress" >
                             </div>
                             <div class="w3-half">
-                                <label>Branch ID</label>
-                                <h4 class="w3-input">078 945 6123</h4>
+                                <label>Address</label>
+                                <input class="w3-input w3-border" disabled="true" type="text" id="dAddress" name="Address" >
+                            </div>
+                        </div>
+                        <div class="w3-row-padding w3-padding-16">
+                            <div class="w3-half">
+                                <label>Mobile Number</label>
+                                <input class="w3-input w3-border" disabled="true" type="text" id="dMobileNumber" name="MobileNumber" >
+                            </div>
+                            <div class="w3-half">
+                                <label>Password</label>
+                                <input class="w3-input w3-border" disabled="true" type="text" id="dUserPassword" name="UserPassword" >
                             </div>
                         </div>
                         <div class="w3-row-padding w3-padding-16">
@@ -150,13 +158,14 @@
                                 <button type="submit" class="w3-button w3-block w3-dark-grey">Request To Modify</button>
                             </div> 
                         </div>
-
+                    </form>
                         <a class="btn w3-button" style="margin-bottom: 10px;" href="#Top">Go to Top</a>
+                        
+                        
                     </div>
 
                 </div>
-
-
+                
         <div class="container-fluid"><br></div>
     </div>
 </div>  
@@ -167,6 +176,184 @@
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="js/scripts.js"></script>
 <script>
+$( document ).ready(function() {
+        var userId = localStorage.getItem("userId");
+        if(userId == 0){ window.location.href="index";}
+
+        rideHistory();
+        curentRide();
+        rideRequest();
+        driverdetails();
+    });
+
+
+    function rideHistory()
+    {
+        var userId = localStorage.getItem("userId");
+        console.log(userId);
+
+        $.ajax({
+        url: 'http://localhost:8080/driver/driverhistory',
+        type: 'POST',
+        headers: {"Content-Type": "application/json"},
+         dataType:'json',
+         data: JSON.stringify(userId),
+        success: function (data)
+		{
+			console.log(data);     
+            var obj = data.data;
+            $.each(obj, function(k, v)
+			{
+                var mark = '<tr class='+"w3-center"+'>'+
+                            '<td>' + v.sourceLocationId + '</td>'+
+		                    '<td>' + v.destinationLocationId + '</td>'+
+                            '<td>' + v.travelDateTime + '</td>'+
+                            '<td>' + v.tripFare + '</td>'+
+                            '<td>' + v.tripStatus + '</td>'+
+                            '<td>' + v.branchId + '</td>'+
+                            '</tr>';
+                $('#dhisList').append(mark);
+            });
+        }});
+    }
+
+    function curentRide()
+    {
+        var userId = localStorage.getItem("userId");
+        console.log(userId);
+
+        $.ajax({
+        url: 'http://localhost:8080/driver/currenttrip',
+        type: 'POST',
+        headers: {"Content-Type": "application/json"},
+         dataType:'json',
+         data: JSON.stringify(userId),
+        success: function (data)
+		{
+			console.log(data);    //tripRequest
+            var obj = data.data;
+            $.each(obj, function(k, v)
+			{
+                var mark = '<tr><td><div class="w3-container">' +
+                '<h5 class="w3-opacity"><b> '+ v.sourceLocationId +' To '+ v.destinationLocationId + '</b></h5>' +
+                '<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>'+v.travelDateTime+'</h6>' +
+                '<h5 style="margin:10px 20px; color:goldenrod" > Fare - '+v.tripFare+'/-</h4>' +
+                '<button class="btn btn-default" id="cancel request" style="width:200px; margin:0px 10px; background-color:indianred" onclick="tripCancel(this);"> Cancel</button>'+
+                '<hr></div></td></tr>';
+                $('#curenttrip').append(mark);
+            });
+        }});
+    }
+
+    function rideRequest()
+    {
+        var branchID = localStorage.getItem("branchID");
+        console.log(branchID);
+
+        $.ajax({
+        url: 'http://localhost:8080/driver/triprequest',
+        type: 'POST',
+        headers: {"Content-Type": "application/json"},
+         dataType:'json',
+         data: JSON.stringify(branchID),
+        success: function (data)
+		{
+			console.log(data);    //tripRequest
+            var obj = data.data;
+            $.each(obj, function(k, v)
+			{
+                var mark = '<tr><td><div class="w3-container">' +
+                '<h5 class="w3-opacity"><b> '+ v.sourceLocationId +' To '+ v.destinationLocationId + '</b></h5>' +
+                '<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>'+v.travelDateTime+'</h6>' +
+                '<h5 style="margin:10px 20px; color:goldenrod" > Fare - '+v.tripFare+'/-</h4>' +
+                '<button class="btn btn-default" id="confirmrequest" style="width:200px; margin:0px 10px; background-color:lightseagreen" onclick="tripConfirm(this);"> Confirm</button>'+
+                '<button class="btn btn-default" id="cancel request" style="width:200px; margin:0px 10px; background-color:indianred" onclick="tripCancel(this);"> Cancel</button>'+
+                '<hr></div></td></tr>';
+                $('#tripRequest').append(mark);
+            });           
+            /*$('#sourcetodesti').val(obj.sourceLocationId + " - " + obj.destinationLocationId );
+            $('#Triptime').val(obj.travelDateTime);
+            $('#tripFare').val(obj.tripFare);
+            $('#tripstatus').val(obj.tripStatus);*/
+        }});
+    }
+
+    function driverdetails()
+    {
+        var userId = localStorage.getItem("userId");
+        console.log(userId);
+
+    $.ajax({
+         url: 'http://localhost:8080/driver/driverdetails',
+         type: 'POST',
+         headers: {
+          "Content-Type": "application/json"
+           },
+         dataType:'json',
+         data: JSON.stringify(userId),
+         success: function (data) {
+             console.log(data);
+             var obj = data.data;
+             $('#ddriverid').val(obj.userid);
+             $('#dFirstName').val(obj.fName);
+             $('#dlastName').val(obj.lName);
+             $('#dEmailAddress').val(obj.email);
+             $('#dAddress').val(obj.address);
+             $('#dMobileNumber').val(obj.mobilenumber);
+             $('#dUserPassword').val(obj.uPassword);
+             $('#dvehileid').val(obj.uPassword);
+             
+             //code for data
+         }
+     });
+    }
+
+    function  tripCancel(trip)
+    {
+        console.log(trip.data);
+        $(trip).data.data;
+        var ss = JSON.stringify(trip.data);
+        console.log(ss);
+        var tid = document.getElementById('');
+        console.log(tid);  
+
+        $.ajax({
+        url: 'http://localhost:8080/driver/tripcancel',
+        type: 'POST',
+        headers: {"Content-Type": "application/json"},
+         dataType:'json',
+         data: JSON.stringify(tid),
+        success: function (data)
+		{
+			console.log(data);  
+            alert(data.message);
+        }});
+    }
+
+    function  tripConfirm(trip)
+    {
+        console.log(trip);
+        $(trip).data.data;
+        var ss = JSON.stringify(trip.data);
+        console.log(ss);
+        var tid = document.getElementById('');
+        console.log(tid);  
+
+        $.ajax({
+        url: 'http://localhost:8080/driver/tripconfirm',
+        type: 'POST',
+        headers: {"Content-Type": "application/json"},
+         dataType:'json',
+         data: JSON.stringify(tid),
+        success: function (data)
+		{
+			console.log(data);  
+            alert(data.message);
+        }});
+    }
+
+
+
 
 function fnDriverHistory(cd) {
   let table="<tr><th>Artist</th><th>Title</th></tr>";

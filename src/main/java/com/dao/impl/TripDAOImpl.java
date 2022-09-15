@@ -1,9 +1,16 @@
 package com.dao.impl;
 
 import com.dao.TripDAO;
-import com.dto.request.*;
-import com.dto.response.*;
-import com.fasterxml.jackson.core.sym.Name;
+import com.dto.request.AssignDriverReq;
+import com.dto.request.CancelTripReq;
+import com.dto.request.CreateTripReq;
+import com.dto.request.EditTripReq;
+import com.dto.request.GetLocationByCityReq;
+import com.dto.request.TripDetailReq;
+import com.dto.response.BranchDetailRes;
+import com.dto.response.GeneralResponse;
+import com.dto.response.LocationRes;
+import com.dto.response.TripRes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -35,7 +42,7 @@ public class TripDAOImpl implements TripDAO {
                     createTripReq.getDestinationLocationId(),
                     createTripReq.getTravelDateTime(),
                     calculateCost(),
-                    "confirm",
+                    "booked",
                     createTripReq.getBranchId(),
                     createTripReq.getUserDetailId()
             );
@@ -185,7 +192,6 @@ public class TripDAOImpl implements TripDAO {
      */
     @Override
     public String getBarchName() {
-        // TODO Auto-generated method stub
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;

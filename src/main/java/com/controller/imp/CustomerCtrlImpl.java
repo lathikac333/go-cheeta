@@ -1,40 +1,49 @@
 package com.controller.imp;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import com.controller.*;
-import com.dao.CustomerDao;
-import com.dto.request.UserReq;
-import com.dto.response.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import com.dto.response.GeneralResponse;
+import com.dto.response.TripDetails;
+import com.business.CustomerB;
+import com.controller.CustomerCtrl;
+import com.dto.response.UserDTO;
 
+@RestController
+@CrossOrigin("*")
 public class CustomerCtrlImpl implements CustomerCtrl  {
 
     @Autowired
-    CustomerDao customerDao;
+    CustomerB customerB;
 
     @Override
-    @GetMapping("/customer/detail/{userreq}")
-    public GeneralResponse getSelectedUser(@PathVariable UserReq userreq) {
-        UserDTO usr = customerDao.SelectedUserDtl(userreq);
+    @PostMapping("/customer/detail")
+    public GeneralResponse getSelectedUser(@RequestBody  int userreq) {
+        //int uid = 7;
+        UserDTO usr = customerB.SelectedUserDtl(userreq);
         return GeneralResponse.generateResponse(usr,1000,"Success");
         
     }
 
     @Override
-    @GetMapping("/customer/triphistory/{userreq}")
-    public GeneralResponse getttripHistory(@PathVariable UserReq userreq) {
-        List<TripDetails> ff = customerDao.UserTripHistory(userreq);
+    @PostMapping("/customer/triphistory")
+    public GeneralResponse getttripHistory(@RequestBody int userreq) {
+        //int uid = 7;
+        List<TripDetails> ff = customerB.UserTripHistory(userreq);
         return GeneralResponse.generateResponse(ff,1000,"Success");
     }
 
     @Override
-    @GetMapping("/customer/currenttrip/{userreq}")
-    public GeneralResponse onGoingtrip(@PathVariable UserReq userreq) {
+    @PostMapping("/customer/currenttrip")
+    public GeneralResponse onGoingtrip(@RequestBody  int userreq) {
         TripDetails trip = new TripDetails();
-        List<TripDetails> ff = customerDao.UserTripHistory(userreq);
+        //int uid = 7;
+        List<TripDetails> ff = customerB.UserTripHistory(userreq);
         for (TripDetails tripDetails : ff) {
-            if(tripDetails.getTripStatus().toLowerCase() != "closed")
+            String stus = tripDetails.getTripStatus().toLowerCase();
+            if( stus == "confirmed" || stus == "ontrip" )
             {
                 trip = tripDetails;
             };
@@ -43,8 +52,7 @@ public class CustomerCtrlImpl implements CustomerCtrl  {
     }
 
     @Override
-    public String updateUserDetail(UserDTO user) {
-        // TODO Auto-generated method stub
+    public String updateUserDetail(@RequestBody UserDTO user) {
         return null;
     }
     

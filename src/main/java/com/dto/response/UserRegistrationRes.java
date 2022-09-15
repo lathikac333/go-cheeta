@@ -3,6 +3,15 @@ package com.dto.response;
 public class UserRegistrationRes {
     private int userId;
     private int userType;
+    private int branchID;
+
+    public int getBranchID() {
+        return branchID;
+    }
+
+    public void setBranchID(int branchID) {
+        this.branchID = branchID;
+    }
 
     public int getUserId() {
         return userId;

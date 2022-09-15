@@ -3,7 +3,6 @@ package com.dao.impl;
 import com.dao.CustomerDao;
 import com.dto.response.TripDetails;
 import com.dto.response.UserDTO;
-import com.dto.request.UserReq;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,13 +22,13 @@ public class CustomerDaoImpl implements CustomerDao {
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public UserDTO SelectedUserDtl(UserReq userreq) {
+    public UserDTO SelectedUserDtl(int userreq) {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         UserDTO user = new UserDTO();
         try {
-            String selectuserbyidtype = "select * from userdetail where UserDetailId = '"+userreq.getUserID()+"' and UserType = '"+userreq.getUserType()+"'";
+            String selectuserbyidtype = "select * from userdetail where UserDetailId = '"+userreq+"' ";
             connection = DataSourceUtils.getConnection(jdbcTemplate.getDataSource());
             statement = connection.createStatement();
             resultSet = statement.executeQuery(selectuserbyidtype);
@@ -58,13 +57,13 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public List<TripDetails> UserTripHistory(UserReq userreq) {
+    public List<TripDetails> UserTripHistory(int userreq) {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         List<TripDetails> Triplist = new ArrayList<>();
         try {
-            String selectuserbyidtype = "select * from trip where UserDetailid = '"+userreq.getUserID()+"' order by TripId desc";
+            String selectuserbyidtype = "select * from trip where UserDetailid = '"+userreq+"' order by TripId desc";
             connection = DataSourceUtils.getConnection(jdbcTemplate.getDataSource());
             statement = connection.createStatement();
             resultSet = statement.executeQuery(selectuserbyidtype);

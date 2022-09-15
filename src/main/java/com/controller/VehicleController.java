@@ -3,11 +3,8 @@ package com.controller;
 import com.dto.request.GetVehicleDetailReq;
 import com.dto.request.VehicleCategoryReq;
 import com.dto.request.VehicleDetailReq;
-import com.dto.response.CommonResponse;
 import com.dto.response.GeneralResponse;
-import com.dto.response.VehicleCategoriesRes;
 
-import java.util.List;
 
 public interface VehicleController {
     /**

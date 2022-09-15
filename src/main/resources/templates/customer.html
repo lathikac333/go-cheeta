@@ -39,7 +39,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                        <li class="nav-item active"><a class="nav-link" href="index.html" onclick="logout();">Logout</a>
+                        <li class="nav-item active"><a class="nav-link" href="index" onclick="logout();">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -53,23 +53,35 @@
                 <header class="w3-container" style="padding-top:22px">
                     <h5><b><i class="fa fa-dashboard"></i> Book a Ride </b></h5>
                 </header>
-                <div class="w3-row-padding w3-padding-16">
+                <form id="booking">
+                    <div class="w3-row-padding w3-padding-16">
+                        <div class="w3-half">
+                            <label>User Id</label>
+                            <input class="w3-input w3-border" type="text" id="TuserID" name="userDetailId" >
+                            
+                        </div>
+
+                        <div class="w3-half">
+                            
+                        </div>  
+                    </div>
+                    <div class="w3-row-padding w3-padding-16">
                         <div class="w3-half">
                             <label>Source Location</label>
-                            <select class="form-select" aria-label="Default select example" id="sloc" name="location">
-                                <option selected>Select</option>
+                            <select class="form-select" aria-label="Default select example" id="sloc" name="sourceLocationId">
+                                <option selected id="seletsloc">Select</option>
                             </select>
                         </div>
 
                         <div class="w3-half">
                             <label>Destination Location</label>
-                            <select class="form-select" aria-label="Default select example" id="dloc" name="doc">
-                                <option selected>Select</option>
+                            <select class="form-select" aria-label="Default select example" id="dloc" name="destinationLocationId">
+                                <option selected id="seletdloc">Select</option>
                             </select>
                         </div>  
-                </div>
+                    </div>
 
-                <div class="w3-row-padding w3-padding-16">
+                    <div class="w3-row-padding w3-padding-16">
                     <div class="w3-half">
                         <label>TravelDateTime</label>
                         <input class="w3-input w3-border" type="datetime-local" id="travelDateTime" name="travelDateTime">
@@ -78,15 +90,17 @@
 
                     <div class="w3-half">
                         <label>Select Branch</label>
-                        <select class="form-select" aria-label="Default select example" id="branch" name="branch">
-                            <option selected>Select</option>
+                        <select class="form-select" aria-label="Default select example" id="branch" name="branchId">
+                            <option selected id="seletbnc">Select</option>
                         </select>
                     </div> 
-                </div>
+                    </div>
                 
-                <div class="col-xs-offset-2 col-xs-10" style="padding-bottom:20px;">
-                    <button type="submit" class="btn btn-primary w3-block" style="height: 50px;">Book</button>
-                </div>
+                    <div class="col-xs-offset-2 col-xs-10" style="padding-bottom:20px;">
+                    <button type="submit" id="sbtbookaride" class="btn btn-primary w3-block" style="height: 50px;">Book</button>
+                    </div>
+                </form>
+                
 
 
         <!--    <div class="bs-example">
@@ -147,29 +161,8 @@
                     <h5><b><i class="fa fa-dashboard"></i> On Going Ride </b></h5>
                 </header>
                 <table style="width:100%">
-                    <tr>
-                        <th></th>
-                      </tr>
-                    <tr>
-                        <td>
-                            <div class="w3-container">
-                                <h5 class="w3-opacity"><b>W3Schools.com</b></h5>
-                                <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>
-                                <p>Web Development! All I need to know in one place</p>
-                                <hr>
-                              </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="w3-container">
-                                <h5 class="w3-opacity"><b>London Business School</b></h5>
-                                <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2013 - 2015</h6>
-                                <p>Master Degree</p>
-                                <hr>
-                              </div>
-                        </td>
-                    </tr>
+                    <tbody id="curentTrip">
+                    </tbody>
                 </table>
                 <a class="btn w3-button" style="margin-bottom: 10px;" href="#Top">Go to Top</a>
             </div>  
@@ -183,32 +176,16 @@
                     <h5><b><i class="fa fa-dashboard"></i> History </b></h5>
                 </header>
                 <table style="width: 100%; margin-bottom: 50px;">
-                    <tr class="w3-dark-grey w3-center w3-xlarge">
-                        <th >User Detail ID</th>
-                        <th >First Name</th>
-                        <th >Last Name</th>
-                        <th >Email Address</th>
-                        <th >Address</th>
-                        <th >Mobile Number</th>
-                        <th >User Type</th>
+                    <tr class="w3-dark-grey w3-center">
+                        <th >sourceLocation</th>
+                        <th >destinationLocation</th>
+                        <th >travelDateTime</th>
+                        <th >tripFare</th>
+                        <th >tripStatus</th>
+                        <th >branchId</th>
                     </tr>
-                    <tr class=" w3-center ">
-                        <td>Floorplanning</td> <td>10 hours support</td>
-                        <td>10 hours support</td>   <td>10 hours support</td>
-                        <td>10 hours support</td>   <td>10 hours support</td>
-                        <td>10 hours support</td>
-                    </tr>
-                    <tr class="w3-center">
-                        <td >55</td> <td >55</td>
-                        <td >55</td> <td>55</td>
-                        <td >55</td> <td>55</td>
-                        <td>55</td>
-                    </tr>
-                    <tr class="w3-center">
-                        <td >55</td><td >55</td><td >55</td>
-                        <td>55</td><td>55</td><td >55</td>
-                        <td >55</td>
-                    </tr>
+                    <tbody id="tripHis">
+                    </tbody>
                 </table>
                 <a class="btn w3-button" style="margin-bottom: 10px;" href="#Top">Go to Top</a>
             </div>  
@@ -224,31 +201,31 @@
                 <div class="w3-row-padding w3-padding-16">
                     <div class="w3-half">
                         <label>First Name</label>
-                        <input class="w3-input w3-border" type="text" name="FirstName" required placeholder="">
+                        <input class="w3-input w3-border" type="text" id="uFirstName" name="FirstName" required placeholder="">
                     </div>
                     <div class="w3-half">
                         <label>Last Name</label>
-                        <input class="w3-input w3-border" type="text" name="lastName" required placeholder="">
+                        <input class="w3-input w3-border" type="text" id="ulastName" name="lastName" required placeholder="">
                     </div>
                 </div>
                 <div class="w3-row-padding w3-padding-16">
                     <div class="w3-half">
                         <label>Email Address</label>
-                        <input class="w3-input w3-border" type="text" name="EmailAddress" required placeholder="">
+                        <input class="w3-input w3-border" type="text" id="uEmailAddress" name="EmailAddress" required placeholder="">
                     </div>
                     <div class="w3-half">
                         <label>Address</label>
-                        <input class="w3-input w3-border" type="text" name="Address" required placeholder="">
+                        <input class="w3-input w3-border" type="text" id="uAddress" name="Address" required placeholder="">
                     </div>
                 </div>
                 <div class="w3-row-padding w3-padding-16">
                     <div class="w3-half">
                         <label>Mobile Number</label>
-                        <input class="w3-input w3-border" type="text" name="MobileNumber" required placeholder="">
+                        <input class="w3-input w3-border" type="text" id="uMobileNumber" name="MobileNumber" required placeholder="">
                     </div>
                     <div class="w3-half">
                         <label>User Password</label>
-                        <input class="w3-input w3-border" type="text" name="UserPassword" required placeholder="">
+                        <input class="w3-input w3-border" type="password" id="uUserPassword" name="UserPassword" required placeholder="">
                     </div>
                 </div>
                 <div style="padding-bottom:20px;">
@@ -270,10 +247,15 @@
 <script>
 $( document ).ready(function() {
         var userId = localStorage.getItem("userId");
-        if(userId == 0){ window.location.href="index.html";}
+        if(userId == 0){ window.location.href="index";}
         sourceLoc();
 		sourceBranch();
-
+        triphistory();
+        userDetail();
+        CurentTrip();
+        
+        $("#travelDateTime").val(new Date());
+        $('#TuserID').val(localStorage.getItem("userId"));
     });
 
 	function simple(){
@@ -286,11 +268,10 @@ $( document ).ready(function() {
         localStorage.setItem("userId", 0);
     }
 
-
     function sourceLoc(){
         $.ajax({
-        url: 'http://localhost:8085/trip/location/list',
-        type: 'POST',
+        url: 'http://localhost:8080/trip/location/list',
+        type: 'GET',
         headers: { "Content-Type": "application/json" },
         dataType:'json',
         success: function (data)
@@ -310,8 +291,8 @@ $( document ).ready(function() {
     function sourceBranch()
     {
         $.ajax({
-        url: 'http://localhost:8085/trip/branches/list',
-        type: 'POST',
+        url: 'http://localhost:8080/trip/branches/list',
+        type: 'GET',
         headers: { "Content-Type": "application/json" },
         dataType:'json',
         success: function (data)
@@ -322,11 +303,149 @@ $( document ).ready(function() {
             $.each(obj, function(k, v)
 			{
 				var displayVal = v.BranchName;
-                $('#branch').append('<option value="' + v.BranchId + '">' + displayVal + '</option>');
+                $('#branch').append('<option value="' + v.id + '">' + v.branchName + '</option>');
             });}
         }});
 
     }
+
+    function userDetail()
+    {
+        var userId = localStorage.getItem("userId");
+        console.log(userId);
+
+    $.ajax({
+         url: 'http://localhost:8080/customer/detail',
+         type: 'POST',
+         headers: {
+          "Content-Type": "application/json"
+           },
+         dataType:'json',
+         data: JSON.stringify(userId),
+         success: function (data) {
+             console.log(data);
+             var obj = data.data;
+             $('#uusedid').val(obj.userid);
+             $('#uFirstName').val(obj.fName);
+             $('#ulastName').val(obj.lName);
+             $('#uEmailAddress').val(obj.email);
+             $('#uAddress').val(obj.address);
+             $('#uMobileNumber').val(obj.mobilenumber);
+             $('#uUserPassword').val(obj.uPassword);
+             //code for data
+         }
+     });
+    console.log('end');
+    }
+
+    function triphistory()
+    {
+        var userId = localStorage.getItem("userId");
+        console.log(userId);
+
+        $.ajax({
+        url: 'http://localhost:8080/customer/triphistory',
+        type: 'POST',
+        headers: {"Content-Type": "application/json"},
+         dataType:'json',
+         data: JSON.stringify(userId),
+        success: function (data)
+		{
+			console.log(data);     
+            var obj = data.data;
+            $.each(obj, function(k, v)
+			{
+                var mark = '<tr class='+"w3-center"+'>'+
+                            '<td>' + v.sourceLocationId + '</td>'+
+		                    '<td>' + v.destinationLocationId + '</td>'+
+                            '<td>' + v.travelDateTime + '</td>'+
+                            '<td>' + v.tripFare + '</td>'+
+                            '<td>' + v.tripStatus + '</td>'+
+                            '<td>' + v.branchId + '</td>'+
+                            '</tr>';
+                $('#tripHis').append(mark);
+            });
+
+            /*markup = ""; 
+            document.getElementById("SourceLocation").values = data.data.sourceLocationId;
+             document.getElementById("DestinationLocation").values = data.data.destinationLocationId;
+             document.getElementById("TravelDateTime").values = data.data.travelDateTime;
+             document.getElementById("TripFare").values = data.data.tripFare;
+             document.getElementById("TripStatus").values = data.data.tripStatus;
+             document.getElementById("BranchId").values = data.data.branchId; */
+        }});
+    }
+
+    function CurentTrip()
+    {
+        var userId = localStorage.getItem("userId");
+        console.log(userId);
+
+        $.ajax({
+        url: 'http://localhost:8080/customer/currenttrip',
+        type: 'POST',
+        headers: {"Content-Type": "application/json"},
+         dataType:'json',
+         data: JSON.stringify(userId),
+        success: function (data)
+		{
+			console.log(data);  
+            var obj = data.data;   
+            /* $('#sourcetodesti').val(obj.sourceLocationId + " - " + obj.destinationLocationId );
+            $('#Triptime').val(obj.travelDateTime);
+            $('#tripFare').val(obj.tripFare);
+            $('#tripstatus').val(obj.tripStatus);
+            document.getElementById("SourceLocation").values = data.data.sourceLocationId;
+             document.getElementById("DestinationLocation").values = data.data.destinationLocationId;
+             document.getElementById("TravelDateTime").values = data.data.travelDateTime;
+             document.getElementById("TripFare").values = data.data.tripFare;
+             document.getElementById("TripStatus").values = data.data.tripStatus;
+             document.getElementById("BranchId").values = data.data.branchId;*/
+             $.each(obj, function(k, v)
+			{
+                var mark = '<tr><td><div class="w3-container">' +
+                '<h5 class="w3-opacity"><b> '+ v.sourceLocationId +' To '+ v.destinationLocationId + '</b></h5>' +
+                '<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>'+v.travelDateTime+'</h6>' +
+                '<h5 style="margin:10px 20px; color:goldenrod" > Fare - '+v.tripFare+'/-</h4>' +
+                '<button class="btn btn-default" id="cancel request" style="width:200px; margin:0px 10px; background-color:indianred"> '+v.tripStatus+'</button>'+
+                '<hr></div></td></tr>';
+                $('#curenttrip').append(mark);
+            });
+        }});
+    }
+
+    $('#booking').submit(function(e){
+    console.log('start');
+    var formData = $("#booking").serialize();
+    e.preventDefault();
+
+    var formData = $(this).serializeArray();
+    var values = {};
+
+    $.map(formData, function(n, i){
+        values[n['name']] = n['value'];
+    });
+
+    console.log(values);
+
+    $.ajax({
+         url: 'http://localhost:8080/trip/create',
+         type: 'POST',
+         headers: {
+          "Content-Type": "application/json"
+           },
+         dataType:'json',
+         data: JSON.stringify(values),
+         success: function (data) {
+             console.log(data);
+             //if(data.statusCode == 1000){
+             alert(data.message);
+              location.reload();
+             //}
+         }
+     });
+    console.log('end');
+});
 
 </script>
 </body>

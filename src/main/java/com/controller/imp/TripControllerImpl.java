@@ -42,6 +42,7 @@ public class TripControllerImpl implements TripController {
     @Override
     @PostMapping("/trip/create")
     public GeneralResponse createNewTrip(@RequestBody CreateTripReq createTripReq) {
+        //.setUserDetailId(6);
         return tripBusiness.createNewTrip(createTripReq);
     }
 
@@ -108,7 +109,6 @@ public class TripControllerImpl implements TripController {
     @Override
     @GetMapping("/branch/name")
     public GeneralResponse getBranchName() {
-        // TODO Auto-generated method stub
         String nn = tripDAO.getBarchName();
         return GeneralResponse.generateResponse(nn, 1000, "Success");
     }

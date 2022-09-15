@@ -1,8 +1,9 @@
-package com.controller;
+package com.business;
 
 import com.dto.response.GeneralResponse;
 
-public interface DriverCtrl {
+
+public interface DriverBusiness {
     
     public GeneralResponse DriverCurentTrip(int driverid);
 
@@ -12,7 +13,4 @@ public interface DriverCtrl {
 
     public GeneralResponse DriverDetails(int uReq);
 
-    public GeneralResponse modifyDriverDetails();
-    public GeneralResponse confirmTrip();
-    public GeneralResponse cancelTrip();
 }

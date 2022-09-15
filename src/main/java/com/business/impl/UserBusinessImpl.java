@@ -60,6 +60,12 @@ public class UserBusinessImpl implements UserBusiness {
             int loginStatus = userDAO.userLogin(customerLoginReq);
             if(loginStatus == 1){
                 UserRegistrationRes registrationRes  = userDAO.getUserByEmail(customerLoginReq.getUsername());
+                if(registrationRes.getUserType() == 3)
+                {
+                    UserRegistrationRes ur = userDAO.getbranchid(registrationRes.getUserId());
+                    registrationRes.setBranchID(ur.getBranchID());
+                }
+
                 generalResponse = new GeneralResponse(registrationRes,1000,"Successfully logged in...!");
             }else {
                 generalResponse = new GeneralResponse(null,1003,"Login Failed, Please try again..!");

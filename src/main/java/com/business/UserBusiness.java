@@ -1,6 +1,5 @@
 package com.business;
 
-import com.dto.request.BranchDetailsReq;
 import com.dto.request.CustomerLoginReq;
 import com.dto.request.DriverRegistrationReq;
 import com.dto.request.UserRegistrationReq;

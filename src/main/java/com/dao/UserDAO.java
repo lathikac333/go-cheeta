@@ -26,5 +26,5 @@ public interface UserDAO {
 
     CommonResponse driverRegistration(DriverRegistrationReq driverRegistrationReq);
 
-
+    public UserRegistrationRes getbranchid(int userrid);
 }
