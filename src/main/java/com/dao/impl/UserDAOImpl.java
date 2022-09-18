@@ -1,6 +1,6 @@
-package com.dao.impl;
+package com.business.impl.dao.impl;
 
-import com.dao.UserDAO;
+import com.business.impl.dao.UserDAO;
 import com.dto.request.CustomerLoginReq;
 import com.dto.request.DriverRegistrationReq;
 import com.dto.request.UserRegistrationReq;
@@ -33,7 +33,6 @@ public class UserDAOImpl implements UserDAO {
         try {
             String INSERT_USER_SQL = "insert into userdetail(FirstName, LastName, EmailAddress, Address, MobileNumber, UserPassword, UserType)" +
                     " VALUES (?,?,?,?,?,?,?)";
-
             isInserted =
                     jdbcTemplate.update(INSERT_USER_SQL,
                             userRegistrationReq.getFirstName(),
@@ -44,15 +43,12 @@ public class UserDAOImpl implements UserDAO {
                             passcodeEncrypt(passcodeEncrypt(userRegistrationReq.getUserPassword())),
                             2
                             );
-
             if(isInserted == 1){
                 response = GeneralResponse.generateResponse(
                         getUserByEmail(userRegistrationReq.getEmailAddress()),
                         1000,
-                        "Customer "+
-                                userRegistrationReq.getFirstName() +" - "+userRegistrationReq.getLastName()+
-                                " created successfully...!"
-                );
+                        "Customer "+ userRegistrationReq.getFirstName() +" - "+userRegistrationReq.getLastName()+
+                                " created successfully...!" );
             }else {
                 response = GeneralResponse.generateResponse(null,1001,"Failed to register the Customer...!");
             }

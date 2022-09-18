@@ -31,14 +31,14 @@ public interface TripController {
      * @param assignDriverReq
      * @return
      */
-    public GeneralResponse assignDriverToTrip(AssignDriverReq assignDriverReq);
+    public GeneralResponse assignDriverToTrip(TripDetailReq assignDriverReq);
 
     /**
      * cancelTrip
      * @param cancelTripReq
      * @return
      */
-    public GeneralResponse cancelTrip(CancelTripReq cancelTripReq);
+    public GeneralResponse cancelTrip(TripDetailReq cancelTripReq);
 
     /**
      * getTripList

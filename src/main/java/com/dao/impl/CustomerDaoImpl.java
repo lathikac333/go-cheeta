@@ -1,6 +1,6 @@
-package com.dao.impl;
+package com.business.impl.dao.impl;
 
-import com.dao.CustomerDao;
+import com.business.impl.dao.CustomerDao;
 import com.dto.response.TripDetails;
 import com.dto.response.UserDTO;
 
@@ -20,6 +20,8 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+     
 
     @Override
     public UserDTO SelectedUserDtl(int userreq) {
@@ -53,6 +55,7 @@ public class CustomerDaoImpl implements CustomerDao {
             } catch (SQLException e) {
             }
         }
+        
         return user;
     }
 
@@ -79,6 +82,7 @@ public class CustomerDaoImpl implements CustomerDao {
                 Trip.setUserDetailid(resultSet.getInt("UserDetailid"));
                 Trip.setTripStatus(resultSet.getString("TripStatus"));     
                 Trip.setTripId(resultSet.getInt("TripId"));
+
                 Triplist.add(Trip);
             }
         }catch (SQLException exception){

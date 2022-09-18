@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.business.DriverBusiness;
-import com.dao.CustomerDao;
-import com.dao.DriverDao;
+import com.business.impl.dao.CustomerDao;
+import com.business.impl.dao.DriverDao;
+import com.business.impl.dao.CommonDao;
 import com.dto.response.GeneralResponse;
 import com.dto.response.TripDetails;
 import com.dto.response.UserDTO;
@@ -20,16 +21,29 @@ public class DriverBusinessImpl implements DriverBusiness {
     private DriverDao driverDao;
     @Autowired
     private CustomerDao customerDao;
+    @Autowired
+    private CommonDao CommonDao;
     
     @Override
     public GeneralResponse TripRequst(int tripReq) {
         List<TripDetails> tl1 = driverDao.TripRequst("booked", tripReq, 0);
+        for (TripDetails tripDetails : tl1) {            
+            tripDetails.setBranch(CommonDao.getBranchbyid(tripDetails.getBranchId()).getBranchName());
+            tripDetails.setDestinationLocation(CommonDao.getLocationbyid(tripDetails.getDestinationLocationId()));
+            tripDetails.setSourceLocation(CommonDao.getLocationbyid(tripDetails.getSourceLocationId()));
+        }
         return GeneralResponse.generateResponse(tl1, 1000, "Success");
     }
 
     @Override
     public GeneralResponse DriverHistory(int driverId) {
         List<TripDetails> tl = driverDao.DriverHistory(driverId);
+        for (TripDetails tripDetails : tl) {
+            
+            tripDetails.setBranch(CommonDao.getBranchbyid(tripDetails.getBranchId()).getBranchName());
+            tripDetails.setDestinationLocation(CommonDao.getLocationbyid(tripDetails.getDestinationLocationId()));
+            tripDetails.setSourceLocation(CommonDao.getLocationbyid(tripDetails.getSourceLocationId()));
+        }
         return GeneralResponse.generateResponse(tl,1000,"Success");
     }
 
@@ -48,7 +62,14 @@ public class DriverBusinessImpl implements DriverBusiness {
     @Override
     public GeneralResponse DriverCurentTrip(int driverid) {
         List<TripDetails> tl1 = driverDao.TripRequst("confirmed", 0, driverid);
+        for (TripDetails tripDetails : tl1) {            
+            tripDetails.setBranch(CommonDao.getBranchbyid(tripDetails.getBranchId()).getBranchName());
+            tripDetails.setDestinationLocation(CommonDao.getLocationbyid(tripDetails.getDestinationLocationId()));
+            tripDetails.setSourceLocation(CommonDao.getLocationbyid(tripDetails.getSourceLocationId()));
+
+            //Driverdto d = CommonDao.getDriverbyid(driverid);
+            tripDetails.setUser(customerDao.SelectedUserDtl(tripDetails.getUserDetailid()));
+        }
         return GeneralResponse.generateResponse(tl1, 1000, "Success");
-    }
-    
+    }    
 }

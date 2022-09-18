@@ -84,11 +84,10 @@
         <div id="_driverHistory"><br></div>   
         <div  class="container-fluid">
             <div class="w3-container w3-card w3-white">
-                <header class="w3-container" style="padding-top:22px">
-                    <h5><b><i class="fa fa-dashboard"></i> Driver History </b></h5>
                 </header>
                 <table style="width: 100%; margin-bottom: 50px;">
                     <tr class="w3-dark-grey w3-center w3-xlarge">
+                        <th>TripID</th>
                         <th >Source</th>
                         <th >Desination</th>
                         <th >Date Time</th>
@@ -178,7 +177,8 @@
 <script>
 $( document ).ready(function() {
         var userId = localStorage.getItem("userId");
-        if(userId == 0){ window.location.href="index";}
+        var userType = localStorage.getItem("userType");
+        if(userId == 0 || userType !=3 ){ window.location.href="index";}
 
         rideHistory();
         curentRide();
@@ -205,12 +205,13 @@ $( document ).ready(function() {
             $.each(obj, function(k, v)
 			{
                 var mark = '<tr class='+"w3-center"+'>'+
-                            '<td>' + v.sourceLocationId + '</td>'+
-		                    '<td>' + v.destinationLocationId + '</td>'+
+                    '<td>' + v.tripId + '</td>' +
+                            '<td>' + v.sourceLocation + '</td>'+
+		                    '<td>' + v.destinationLocation + '</td>'+
                             '<td>' + v.travelDateTime + '</td>'+
                             '<td>' + v.tripFare + '</td>'+
                             '<td>' + v.tripStatus + '</td>'+
-                            '<td>' + v.branchId + '</td>'+
+                            '<td>' + v.branch + '</td>'+
                             '</tr>';
                 $('#dhisList').append(mark);
             });
@@ -230,15 +231,21 @@ $( document ).ready(function() {
          data: JSON.stringify(userId),
         success: function (data)
 		{
-			console.log(data);    //tripRequest
+			console.log(data);    //tripRequest  User.
             var obj = data.data;
             $.each(obj, function(k, v)
 			{
                 var mark = '<tr><td><div class="w3-container">' +
-                '<h5 class="w3-opacity"><b> '+ v.sourceLocationId +' To '+ v.destinationLocationId + '</b></h5>' +
+                '<h5 class="w3-opacity"><b> '+v.sourceLocation+' To '+v.destinationLocation+ '</b></h5>' +
+                '<label style="width:120px; height:25px; margin:0px 10px; background-color:darkorange"><b> #TripID - ' +v.tripId+'</b></label>'+ 
+                '<div style="margin:5px 20px;"><h6 class="w3-text-teal"><b><i class="fa fa-id-card-o"></i> Contact Details</b></h6>' +
+                '<h6 class="w3-text-teal">'+v.user.fName + ' - ' +v.user.mobilenumber+ '</h6></div>' +
                 '<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>'+v.travelDateTime+'</h6>' +
                 '<h5 style="margin:10px 20px; color:goldenrod" > Fare - '+v.tripFare+'/-</h4>' +
-                '<button class="btn btn-default" id="cancel request" style="width:200px; margin:0px 10px; background-color:indianred" onclick="tripCancel(this);"> Cancel</button>'+
+                '<label class="class="w3-text-teal" id="tripsts" style="width:120px; height:25px; margin:10px; padding:3px background-color:skyblue"><b>'+v.tripStatus+'</b></label><br>'+
+                '<input type="button" class="btn btn-default" id="cancelrequest" value="Cancel" style="width:200px; margin:0px 10px; background-color:indianred" onclick="tripCancel('+v.tripId +');">'+
+                '<input type="button" class="btn btn-default" id="startTrip" value="Start trip" style="width:200px; margin:0px 10px; background-color:lightgreen" onclick="tripStart('+v.tripId +');">'+
+                '<input type="button" class="btn btn-default" id="closeTrip" value="Stop Trip" style="width:200px; margin:0px 10px; background-color:lightgreen" onclick="tripClose('+v.tripId +');">'+
                 '<hr></div></td></tr>';
                 $('#curenttrip').append(mark);
             });
@@ -263,11 +270,12 @@ $( document ).ready(function() {
             $.each(obj, function(k, v)
 			{
                 var mark = '<tr><td><div class="w3-container">' +
-                '<h5 class="w3-opacity"><b> '+ v.sourceLocationId +' To '+ v.destinationLocationId + '</b></h5>' +
+                '<h5 class="w3-opacity"><b> '+ v.sourceLocation +' To '+ v.destinationLocation + '</b></h5>' +
+                '<label style="width:120px; height:20px; margin:0px 10px; background-color:darkorange"> #TripID - ' +v.tripId+'</label>'+
                 '<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>'+v.travelDateTime+'</h6>' +
                 '<h5 style="margin:10px 20px; color:goldenrod" > Fare - '+v.tripFare+'/-</h4>' +
-                '<button class="btn btn-default" id="confirmrequest" style="width:200px; margin:0px 10px; background-color:lightseagreen" onclick="tripConfirm(this);"> Confirm</button>'+
-                '<button class="btn btn-default" id="cancel request" style="width:200px; margin:0px 10px; background-color:indianred" onclick="tripCancel(this);"> Cancel</button>'+
+                '<input type="button" class="btn btn-default" id="confirmrequest" style="width:200px; margin:0px 10px; background-color:lightseagreen" onclick="tripConfirm('+v.tripId +');" value="Confirm">'+
+                '<input type="button" class="btn btn-default" id="cancelrequest" style="width:200px; margin:0px 10px; background-color:indianred" onclick="tripCancel('+v.tripId +');" value="Cancel">'+
                 '<hr></div></td></tr>';
                 $('#tripRequest').append(mark);
             });           
@@ -310,19 +318,16 @@ $( document ).ready(function() {
 
     function  tripCancel(trip)
     {
-        console.log(trip.data);
-        $(trip).data.data;
-        var ss = JSON.stringify(trip.data);
-        console.log(ss);
-        var tid = document.getElementById('');
-        console.log(tid);  
-
+        item = {}
+        item ["tripId"] = trip;
+        item ["driverUserId"] = localStorage.getItem("userId");
+        console.log(item);
         $.ajax({
         url: 'http://localhost:8080/driver/tripcancel',
         type: 'POST',
         headers: {"Content-Type": "application/json"},
          dataType:'json',
-         data: JSON.stringify(tid),
+         data: JSON.stringify(item),
         success: function (data)
 		{
 			console.log(data);  
@@ -332,19 +337,16 @@ $( document ).ready(function() {
 
     function  tripConfirm(trip)
     {
-        console.log(trip);
-        $(trip).data.data;
-        var ss = JSON.stringify(trip.data);
-        console.log(ss);
-        var tid = document.getElementById('');
-        console.log(tid);  
-
+        item = {}
+        item ["tripId"] = trip;
+        item ["driverUserId"] = localStorage.getItem("userId");
+        console.log(item); 
         $.ajax({
         url: 'http://localhost:8080/driver/tripconfirm',
         type: 'POST',
         headers: {"Content-Type": "application/json"},
          dataType:'json',
-         data: JSON.stringify(tid),
+         data: JSON.stringify(item),
         success: function (data)
 		{
 			console.log(data);  
@@ -352,8 +354,41 @@ $( document ).ready(function() {
         }});
     }
 
+    function tripStart(trip){
+        item = {}
+        item ["tripId"] = trip;
+        item ["driverUserId"] = localStorage.getItem("userId");
+        console.log(item); 
+        $.ajax({
+        url: 'http://localhost:8080/driver/tripStart',
+        type: 'POST',
+        headers: {"Content-Type": "application/json"},
+         dataType:'json',
+         data: JSON.stringify(item),
+        success: function (data)
+		{
+			console.log(data);  
+            alert(data.message);
+        }});
+    }
 
-
+    function tripClose(trip){
+        item = {}
+        item ["tripId"] = trip;
+        item ["driverUserId"] = localStorage.getItem("userId");
+        console.log(item); 
+        $.ajax({
+        url: 'http://localhost:8080/driver/tripClose',
+        type: 'POST',
+        headers: {"Content-Type": "application/json"},
+         dataType:'json',
+         data: JSON.stringify(item),
+        success: function (data)
+		{
+			console.log(data);  
+            alert(data.message);
+        }});
+    }
 
 function fnDriverHistory(cd) {
   let table="<tr><th>Artist</th><th>Title</th></tr>";
@@ -369,6 +404,7 @@ function fnDriverHistory(cd) {
 
 function logout(){
         localStorage.setItem("userId", 0);
+        localStorage.setItem("userType", 0);
 }
 
 </script>

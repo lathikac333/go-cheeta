@@ -5,7 +5,7 @@ public class CreateTripReq {
     private int destinationLocationId;
     private String travelDateTime;
     private int branchId;
-    private int userDetailId;
+    private int userid;
 
     public int getSourceLocationId() {
         return sourceLocationId;
@@ -40,10 +40,10 @@ public class CreateTripReq {
     }
 
     public int getUserDetailId() {
-        return userDetailId;
+        return userid;
     }
 
     public void setUserDetailId(int userDetailId) {
-        this.userDetailId = userDetailId;
+        this.userid = userDetailId;
     }
 }

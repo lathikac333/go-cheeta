@@ -4,6 +4,8 @@ public class LocationRes {
     private int locationId;
     private String streetAddress;
     private String city;
+    private String LocationName;
+    private int BranchId;
 
     public int getLocationId() {
         return locationId;
@@ -27,5 +29,21 @@ public class LocationRes {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getLocationName() {
+        return LocationName;
+    }
+
+    public void setLocationName(String locationName) {
+        LocationName = locationName;
+    }
+
+    public int getBranchId() {
+        return BranchId;
+    }
+
+    public void setBranchId(int branchId) {
+        BranchId = branchId;
     }
 }

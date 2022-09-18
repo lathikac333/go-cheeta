@@ -1,7 +1,7 @@
 package com.business.impl;
 
 import com.business.TripBusiness;
-import com.dao.TripDAO;
+import com.business.impl.dao.TripDAO;
 import com.dto.request.*;
 import com.dto.response.BranchDetailRes;
 import com.dto.response.GeneralResponse;
@@ -19,22 +19,27 @@ public class TripBusinessImpl implements TripBusiness {
 
     @Override
     public GeneralResponse createNewTrip(CreateTripReq createTripReq) {
-        return tripDAO.createNewTrip(createTripReq);
+        if(validatetrip(createTripReq)){
+            return tripDAO.createNewTrip(createTripReq);
+        }
+        else {
+            return new GeneralResponse(null,1001,"Please update the mandatory values...!");
+        }        
     }
 
     @Override
     public GeneralResponse editTrip(EditTripReq editTripReq) {
-        return tripDAO.editTrip(editTripReq);
+        return null;// tripDAO.editTrip(editTripReq);
     }
 
     @Override
-    public GeneralResponse assignDriverToTrip(AssignDriverReq assignDriverReq) {
-        return tripDAO.assignDriverToTrip(assignDriverReq);
+    public GeneralResponse assignDriverToTrip(TripDetailReq TripDetailReq) {
+        return tripDAO.assignDriverToTrip(TripDetailReq);
     }
 
     @Override
-    public GeneralResponse cancelTrip(CancelTripReq cancelTripReq) {
-        return tripDAO.cancelTrip(cancelTripReq);
+    public GeneralResponse cancelTrip(TripDetailReq TripDetailReq, String sts) {
+        return tripDAO.editTrip(TripDetailReq, sts);
     }
 
     @Override
@@ -60,5 +65,26 @@ public class TripBusinessImpl implements TripBusiness {
     @Override
     public List<BranchDetailRes> GetBranches( ) {
         return tripDAO.getBranchDetail();
+    }
+
+    private boolean validatetrip(CreateTripReq createTripReq)
+    {
+        boolean bool = false;
+        if(createTripReq.getBranchId() > 0){
+            bool = true;
+        }
+        if(createTripReq.getSourceLocationId() > 0){
+            bool = true;
+        }
+        if(createTripReq.getDestinationLocationId() > 0){
+            bool = true;
+        }
+        if(createTripReq.getTravelDateTime() != null && !createTripReq.getTravelDateTime().equals("")){
+            bool = true;
+        }
+        if(createTripReq.getUserDetailId() > 0){
+            bool = true;
+        }
+        return bool;
     }
 }

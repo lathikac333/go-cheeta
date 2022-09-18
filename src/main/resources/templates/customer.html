@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        tr:hover {background-color: #D6EEEE;}
+            th, td { padding: 8px; text-align: left; border-bottom: 1px solid #DDD;}
+    </style>
 </head>
 <body>
 <div class="d-flex" id="wrapper">
@@ -57,7 +61,7 @@
                     <div class="w3-row-padding w3-padding-16">
                         <div class="w3-half">
                             <label>User Id</label>
-                            <input class="w3-input w3-border" type="text" id="TuserID" name="userDetailId" >
+                            <input class="w3-input w3-border" style="height: 35px; font-weight: bold;" readonly type="text" id="TuserID" name="userid" >
                             
                         </div>
 
@@ -177,12 +181,13 @@
                 </header>
                 <table style="width: 100%; margin-bottom: 50px;">
                     <tr class="w3-dark-grey w3-center">
+                        <th>TripID</th>
                         <th >sourceLocation</th>
                         <th >destinationLocation</th>
                         <th >travelDateTime</th>
                         <th >tripFare</th>
                         <th >tripStatus</th>
-                        <th >branchId</th>
+                        <th >branch</th>
                     </tr>
                     <tbody id="tripHis">
                     </tbody>
@@ -225,7 +230,7 @@
                     </div>
                     <div class="w3-half">
                         <label>User Password</label>
-                        <input class="w3-input w3-border" type="password" id="uUserPassword" name="UserPassword" required placeholder="">
+                        <input class="w3-input w3-border" readonly type="password" id="uUserPassword" name="UserPassword" required placeholder="">
                     </div>
                 </div>
                 <div style="padding-bottom:20px;">
@@ -247,7 +252,8 @@
 <script>
 $( document ).ready(function() {
         var userId = localStorage.getItem("userId");
-        if(userId == 0){ window.location.href="index";}
+        var userType = localStorage.getItem("userType");
+        if(userId == 0 || userType != 2 ){ window.location.href="index";}
         sourceLoc();
 		sourceBranch();
         triphistory();
@@ -266,6 +272,7 @@ $( document ).ready(function() {
 
 	function logout(){
         localStorage.setItem("userId", 0);
+        localStorage.setItem("userType", 0);
     }
 
     function sourceLoc(){
@@ -345,23 +352,21 @@ $( document ).ready(function() {
 
         $.ajax({
         url: 'http://localhost:8080/customer/triphistory',
-        type: 'POST',
-        headers: {"Content-Type": "application/json"},
-         dataType:'json',
-         data: JSON.stringify(userId),
+        type: 'POST', headers: {"Content-Type": "application/json"},
+         dataType:'json', data: JSON.stringify(userId),
         success: function (data)
 		{
-			console.log(data);     
             var obj = data.data;
             $.each(obj, function(k, v)
 			{
-                var mark = '<tr class='+"w3-center"+'>'+
-                            '<td>' + v.sourceLocationId + '</td>'+
-		                    '<td>' + v.destinationLocationId + '</td>'+
+                var mark = '<tr class="w3-center" style="margin:20px 0px; border-bottom:indianred;">'+
+                            '<td>' + v.tripId + '</td>'+
+                            '<td>' + v.sourceLocation + '</td>'+
+		                    '<td>' + v.destinationLocation + '</td>'+
                             '<td>' + v.travelDateTime + '</td>'+
                             '<td>' + v.tripFare + '</td>'+
                             '<td>' + v.tripStatus + '</td>'+
-                            '<td>' + v.branchId + '</td>'+
+                            '<td>' + v.branch + '</td>'+
                             '</tr>';
                 $('#tripHis').append(mark);
             });
@@ -390,27 +395,17 @@ $( document ).ready(function() {
         success: function (data)
 		{
 			console.log(data);  
-            var obj = data.data;   
-            /* $('#sourcetodesti').val(obj.sourceLocationId + " - " + obj.destinationLocationId );
-            $('#Triptime').val(obj.travelDateTime);
-            $('#tripFare').val(obj.tripFare);
-            $('#tripstatus').val(obj.tripStatus);
-            document.getElementById("SourceLocation").values = data.data.sourceLocationId;
-             document.getElementById("DestinationLocation").values = data.data.destinationLocationId;
-             document.getElementById("TravelDateTime").values = data.data.travelDateTime;
-             document.getElementById("TripFare").values = data.data.tripFare;
-             document.getElementById("TripStatus").values = data.data.tripStatus;
-             document.getElementById("BranchId").values = data.data.branchId;*/
-             $.each(obj, function(k, v)
-			{
+            var v = data.data;
                 var mark = '<tr><td><div class="w3-container">' +
-                '<h5 class="w3-opacity"><b> '+ v.sourceLocationId +' To '+ v.destinationLocationId + '</b></h5>' +
+                '<h5 class="w3-opacity"><b> '+ v.sourceLocation +' To '+ v.destinationLocation + '</b></h5>' +
+                '<label id="cancelrequest" style="width:120px; height:25px; margin:0px 10px; padding:5px background-color:darkorange"> #TripID - ' +v.tripId+'</label>'+
+                '<div style="margin:5px 20px;"><h6 class="w3-text-teal"><b><i class="fa fa-id-card-o"></i> Contact Details</b></h6>' +
+                '<h6 class="w3-text-teal">'+v.user.fName + ' - ' +v.user.mobilenumber+ '</h6></div>' +
                 '<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>'+v.travelDateTime+'</h6>' +
                 '<h5 style="margin:10px 20px; color:goldenrod" > Fare - '+v.tripFare+'/-</h4>' +
-                '<button class="btn btn-default" id="cancel request" style="width:200px; margin:0px 10px; background-color:indianred"> '+v.tripStatus+'</button>'+
+                '<label class="btn btn-default" id="cancelrequest" style="width:150px; height:25px; margin:0px 10px; background-color:indianred"><b>'+v.tripStatus+'</b></label>'+
                 '<hr></div></td></tr>';
-                $('#curenttrip').append(mark);
-            });
+                $('#curentTrip').append(mark);
         }});
     }
 
@@ -438,10 +433,13 @@ $( document ).ready(function() {
          data: JSON.stringify(values),
          success: function (data) {
              console.log(data);
-             //if(data.statusCode == 1000){
+             if(data.statusCode == 1000){
              alert(data.message);
               location.reload();
-             //}
+             }
+             else{
+                alert(data.message);
+             }
          }
      });
     console.log('end');

@@ -1,4 +1,4 @@
-package com.dao;
+package com.business.impl.dao;
 
 import com.dto.request.*;
 import com.dto.response.GeneralResponse;
@@ -17,25 +17,18 @@ public interface TripDAO {
     GeneralResponse createNewTrip(CreateTripReq createTripReq);
 
     /**
-     * editTrip
-     * @param editTripReq
-     * @return
-     */
-    GeneralResponse editTrip(EditTripReq editTripReq);
-
-    /**
      * assignDriverToTrip
      * @param assignDriverReq
      * @return
      */
-    GeneralResponse assignDriverToTrip(AssignDriverReq assignDriverReq);
+    GeneralResponse assignDriverToTrip(TripDetailReq TripDetailReq);
 
     /**
      * cancelTrip
      * @param cancelTripReq
      * @return
      */
-    GeneralResponse cancelTrip(CancelTripReq cancelTripReq);
+    GeneralResponse editTrip(TripDetailReq TripDetailReq, String Status);
 
     /**
      * getTripList

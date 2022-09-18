@@ -1,4 +1,4 @@
-package com.dao.impl;
+package com.business.impl.dao.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,7 +13,7 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
-import com.dao.DriverDao;
+import com.business.impl.dao.DriverDao;
 import com.dto.response.TripDetails;
 import com.dto.response.UserDriverDto;
 
@@ -21,31 +21,37 @@ import com.dto.response.UserDriverDto;
 public class DriverDaoImpl implements DriverDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
-    
     @Override
-    public List<TripDetails> TripRequst(String status, @Nullable int BranchId, @Nullable int driverId) {
+    public List<TripDetails> TripRequst(String status, @Nullable int BranchId, @Nullable int duserId) {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         List<TripDetails> Triplist = new ArrayList<>();
-        String stuswithBranch = "select * from trip where BranchId = '"+BranchId+"' and TripStatus  = '"+status+"' order by TripId desc";
-        String stuswithDriver = "select * from trip where DriverId = '"+driverId+"' and TripStatus  = '"+status+"' order by TripId desc";
-        String Quary;
-        if(BranchId > 0)
-        {
-            Quary = stuswithBranch;
-        }
-        else
-        {
-            Quary = stuswithDriver;
-        }
+        int driverid=0;
 
-        try {
-            
+        try{
             connection = DataSourceUtils.getConnection(jdbcTemplate.getDataSource());
             statement = connection.createStatement();
-            resultSet = statement.executeQuery(Quary);
+            String query = "select DriverId from driver where UserDetailId = '"+duserId+"'";
+            resultSet = statement.executeQuery(query);
             while (resultSet.next()){
+                driverid =resultSet.getInt(1);
+                System.out.println("Driver id -" + driverid );
+                }
+                String stuswithBranch = "select * from trip where BranchId = '"+BranchId+"' and TripStatus  = '"+status+"' order by TripId desc";
+                String stuswithDriver = "select * from trip where DriverId = '"+driverid+"' and TripStatus in ('confirmed', 'onTrip') order by TripId desc";
+                String Quary;
+                if(BranchId > 0)
+                {
+                    Quary = stuswithBranch;
+                }
+                else
+                {
+                    Quary = stuswithDriver;
+                }
+ 
+                resultSet = statement.executeQuery(Quary);
+                while (resultSet.next()){
                 TripDetails Trip = new TripDetails();
 
                 Trip.setBranchId(resultSet.getInt("BranchId"));
@@ -57,6 +63,7 @@ public class DriverDaoImpl implements DriverDao {
                 Trip.setUserDetailid(resultSet.getInt("UserDetailid"));
                 Trip.setTripStatus(resultSet.getString("TripStatus"));     
                 Trip.setTripId(resultSet.getInt("TripId"));
+
                 Triplist.add(Trip);
             }
         }catch (SQLException exception){
@@ -74,15 +81,25 @@ public class DriverDaoImpl implements DriverDao {
     }
 
     @Override
-    public List<TripDetails> DriverHistory(int driverId) {
+    public List<TripDetails> DriverHistory(int duserId) {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         List<TripDetails> Triplist = new ArrayList<>();
+        int driverid = 0;
         try {
-            String selectuserbyidtype = "select * from trip where DriverId = '"+driverId+"' order by TripId desc";
             connection = DataSourceUtils.getConnection(jdbcTemplate.getDataSource());
             statement = connection.createStatement();
+            String query = "select DriverId from driver where UserDetailId = '"+duserId+"'";
+            resultSet = statement.executeQuery(query);
+            while (resultSet.next()){
+                driverid =resultSet.getInt(1);
+                System.out.println("Driver id -" + driverid );
+            }
+
+            String selectuserbyidtype = "select * from trip where DriverId = '"+driverid+"' order by TripId desc";
+            //connection = DataSourceUtils.getConnection(jdbcTemplate.getDataSource());
+            //statement = connection.createStatement();
             resultSet = statement.executeQuery(selectuserbyidtype);
             while (resultSet.next()){
                 TripDetails Trip = new TripDetails();
@@ -96,6 +113,7 @@ public class DriverDaoImpl implements DriverDao {
                 Trip.setUserDetailid(resultSet.getInt("UserDetailid"));
                 Trip.setTripStatus(resultSet.getString("TripStatus"));     
                 Trip.setTripId(resultSet.getInt("TripId"));
+                
                 Triplist.add(Trip);
             }
         }catch (SQLException exception){

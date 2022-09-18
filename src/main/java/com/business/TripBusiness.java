@@ -28,14 +28,14 @@ public interface TripBusiness {
      * @param assignDriverReq
      * @return
      */
-    GeneralResponse assignDriverToTrip(AssignDriverReq assignDriverReq);
+    GeneralResponse assignDriverToTrip(TripDetailReq TripDetailReq);
 
     /**
      * cancelTrip
      * @param cancelTripReq
      * @return
      */
-    GeneralResponse cancelTrip(CancelTripReq cancelTripReq);
+    GeneralResponse cancelTrip(TripDetailReq TripDetailReq, String sts);
 
     /**
      * getTripList

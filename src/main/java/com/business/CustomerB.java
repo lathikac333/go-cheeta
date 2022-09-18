@@ -1,15 +1,14 @@
 package com.business;
 
-import java.util.List;
-
-import com.dto.response.TripDetails;
+import com.dto.response.GeneralResponse;
 import com.dto.response.UserDTO;
 
 public interface CustomerB {
     
     public UserDTO SelectedUserDtl(int userreq);
 
-    public List<TripDetails> UserTripHistory(int userreq);
+    public GeneralResponse UserTripHistory(int userreq);
 
     public String UpdateUser(UserDTO user);
+    public GeneralResponse ongoingTrip(int userid);
 }

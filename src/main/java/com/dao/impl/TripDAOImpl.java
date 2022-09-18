@@ -1,10 +1,7 @@
-package com.dao.impl;
+package com.business.impl.dao.impl;
 
-import com.dao.TripDAO;
-import com.dto.request.AssignDriverReq;
-import com.dto.request.CancelTripReq;
+import com.business.impl.dao.TripDAO;
 import com.dto.request.CreateTripReq;
-import com.dto.request.EditTripReq;
 import com.dto.request.GetLocationByCityReq;
 import com.dto.request.TripDetailReq;
 import com.dto.response.BranchDetailRes;
@@ -12,6 +9,7 @@ import com.dto.response.GeneralResponse;
 import com.dto.response.LocationRes;
 import com.dto.response.TripRes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -30,11 +28,23 @@ public class TripDAOImpl implements TripDAO {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
-    
+
+    ObjectMapper mapper = new ObjectMapper();
+
+
     @Override
     @Transactional
     public GeneralResponse createNewTrip(CreateTripReq createTripReq) {
+        try{
+        String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(createTripReq);
+        System.out.println("customer/triphistory");
+        System.out.println(jsonString);}
+        catch (Exception e){}
+
         GeneralResponse commonResponse = null;
+         Connection connection = null;
+         Statement statement = null;
+         ResultSet resultSet = null;
         int isInserted = 0;
         try{
             isInserted = jdbcTemplate.update(ApplicationDAOContant.ITrip.INSERT_TRIP,
@@ -54,31 +64,100 @@ public class TripDAOImpl implements TripDAO {
             }
         }catch (Exception exception){
             exception.printStackTrace();
-            commonResponse = new GeneralResponse(null,1001,"Unable to create the trip, please try again...!");
+            commonResponse = new GeneralResponse(null,500,"Unable to create the trip, please try again...!");
         }
         return commonResponse;
     }
 
     double calculateCost(){
-        return 13.0;
+        return 149.99;
     }
 
     @Override
     @Transactional
-    public GeneralResponse editTrip(EditTripReq editTripReq) {
-        return null;
+    public GeneralResponse assignDriverToTrip(TripDetailReq TripDetailReq) {
+         Connection connection = null;
+         Statement statement = null;
+         ResultSet resultSet = null;
+        System.out.println(TripDetailReq.getDriverUserId() + ", "+ TripDetailReq.getTripId());
+        GeneralResponse commonResponse = null;
+        int isInserted = 0;
+        int driverid = 0;
+        try{
+            connection = DataSourceUtils.getConnection(jdbcTemplate.getDataSource());
+            statement = connection.createStatement();
+            String query = "select DriverId from driver where UserDetailId = '"+TripDetailReq.getDriverUserId()+"'";
+            resultSet = statement.executeQuery(query);
+            while (resultSet.next()){
+                driverid =resultSet.getInt(1);
+                System.out.println("Driver id -" + driverid );
+            }
+
+            int tripid = 0;
+            String query2 = "select TripId from trip where TripStatus in ('confirmed', 'onTrip') and DriverId = '"+driverid+"'";
+            resultSet = statement.executeQuery(query2);
+            while (resultSet.next()){
+                tripid =resultSet.getInt(1);
+                System.out.println("Tripid id -" + tripid );
+            }
+
+            if(tripid <= 0){
+                isInserted = jdbcTemplate.update(ApplicationDAOContant.ITrip.Asign_TRIP,
+                "confirmed",
+                driverid,
+                TripDetailReq.getTripId()
+                );
+            }            
+
+            if(isInserted == 1){
+                commonResponse = new GeneralResponse(null,1000,"Success");
+            }else {
+                commonResponse = new GeneralResponse(null,1001,"Unable to asign the trip to driver, please try again...!");
+            }
+        }catch (Exception exception){
+            exception.printStackTrace();
+            commonResponse = new GeneralResponse(null,1001,"Unable to asign the trip to driver, please try again...!");
+        }
+        return commonResponse;
     }
 
     @Override
     @Transactional
-    public GeneralResponse assignDriverToTrip(AssignDriverReq assignDriverReq) {
-        return null;
-    }
+    public GeneralResponse editTrip(TripDetailReq TripDetailReq, String Status) {
+         Connection connection = null;
+         Statement statement = null;
+         ResultSet resultSet = null;
+        System.out.println(TripDetailReq.getDriverUserId() + ", "+ TripDetailReq.getTripId());
+        GeneralResponse commonResponse = null;
+        int isInserted = 0;
+        int driverid = 0;
+        try{
+            connection = DataSourceUtils.getConnection(jdbcTemplate.getDataSource());
+            statement = connection.createStatement();
+            String query = "select DriverId from driver where UserDetailId = '"+TripDetailReq.getDriverUserId()+"'";
+            resultSet = statement.executeQuery(query);
+            while (resultSet.next()){
+                driverid =resultSet.getInt(1);
+                System.out.println("Driver id -" + driverid );
+            }
 
-    @Override
-    @Transactional
-    public GeneralResponse cancelTrip(CancelTripReq cancelTripReq) {
-        return null;
+                isInserted = jdbcTemplate.update(ApplicationDAOContant.ITrip.Asign_TRIP,
+                Status,
+                driverid,
+                TripDetailReq.getTripId()
+                );     
+
+            if(isInserted == 1){
+                String sts = "Success - Trip" + Status +"!"; 
+                commonResponse = new GeneralResponse(null,1000,sts);
+            }else {
+                commonResponse = new GeneralResponse(null,1001,"Unable to asign the trip to driver, please try again...!");
+            }
+        }catch (Exception exception){
+            exception.printStackTrace();
+            commonResponse = new GeneralResponse(null,1001,"Unable to asign the trip to driver, please try again...!");
+        }
+        return commonResponse;
     }
 
     @Override
@@ -103,9 +182,11 @@ public class TripDAOImpl implements TripDAO {
             resultSet = statement.executeQuery(ApplicationDAOContant.ITrip.GET_LOCATIONS);
             while (resultSet.next()){
                 LocationRes res = new LocationRes();
-                res.setLocationId(resultSet.getInt(1));
-                res.setStreetAddress(resultSet.getString(2));
-                res.setCity(resultSet.getString(2));
+                res.setLocationId(resultSet.getInt("LocationId"));
+                res.setStreetAddress(resultSet.getString("StreetAddress"));
+                res.setCity(resultSet.getString("City"));
+                res.setLocationName(resultSet.getString("LocationName"));
+                res.setBranchId(resultSet.getInt("BranchId"));
 
                 list.add(res);
             }

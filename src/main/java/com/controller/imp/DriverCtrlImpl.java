@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.business.DriverBusiness;
+import com.business.TripBusiness;
 import com.controller.DriverCtrl;
+import com.dto.request.TripDetailReq;
 import com.dto.response.GeneralResponse;
 
 @RestController
@@ -15,7 +17,9 @@ import com.dto.response.GeneralResponse;
 public class DriverCtrlImpl implements DriverCtrl {
 
     @Autowired
-    DriverBusiness dBusiness;
+    private DriverBusiness dBusiness;
+    @Autowired
+    private TripBusiness tripBusiness;
 
     @Override
     @PostMapping("/driver/currenttrip")
@@ -49,14 +53,26 @@ public class DriverCtrlImpl implements DriverCtrl {
 
     @Override
     @PostMapping("/driver/tripconfirm")
-    public GeneralResponse confirmTrip() {
-        return null;
+    public GeneralResponse confirmTrip(@RequestBody TripDetailReq driverRes) {
+        return tripBusiness.assignDriverToTrip(driverRes);
     }
 
     @Override
     @PostMapping("/driver/tripcancel")
-    public GeneralResponse cancelTrip() {
-        return null;
+    public GeneralResponse cancelTrip(@RequestBody TripDetailReq driverRes) {
+        return tripBusiness.cancelTrip(driverRes, "canceled");
+    }
+
+    @Override
+    @PostMapping("/driver/tripStart")
+    public GeneralResponse StartTrip(@RequestBody TripDetailReq driverRes) {
+        return tripBusiness.cancelTrip(driverRes, "onTrip");
+    }
+
+    @Override
+    @PostMapping("/driver/tripClose")
+    public GeneralResponse TripClose(@RequestBody TripDetailReq driverRes) {
+        return tripBusiness.cancelTrip(driverRes, "closed");
     }
     
 }

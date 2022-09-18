@@ -5,7 +5,15 @@ public class VehicleDetailRes{
     private String brandName;
     private String modelName;
     private String vehicleCategoryName;
+    private int vehicleCategoryid;
 
+    public int getVehicleCategoryid() {
+        return vehicleCategoryid;
+    }
+
+    public void setVehicleCategoryid(int vehicleCategoryid) {
+        this.vehicleCategoryid = vehicleCategoryid;
+    }
 
     public int getVehicleDetailId() {
         return vehicleDetailId;

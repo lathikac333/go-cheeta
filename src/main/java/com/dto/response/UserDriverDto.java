@@ -11,7 +11,9 @@ public class UserDriverDto {
     private String uPassword;
     private int uType;
     private int driverId;
+    private String vehile;
     private int vehileId;
+    private String Branch;
     private int BranchId;
 
     
@@ -80,6 +82,18 @@ public class UserDriverDto {
     }
     public void setBranchId(int branchId) {
         BranchId = branchId;
+    }
+    public String getVehile() {
+        return vehile;
+    }
+    public void setVehile(String vehile) {
+        this.vehile = vehile;
+    }
+    public String getBranch() {
+        return Branch;
+    }
+    public void setBranch(String branch) {
+        Branch = branch;
     }
 
     

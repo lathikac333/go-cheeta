@@ -2,7 +2,7 @@ package com.controller.imp;
 
 import com.business.TripBusiness;
 import com.controller.TripController;
-import com.dao.TripDAO;
+import com.business.impl.dao.TripDAO;
 import com.dto.request.*;
 import com.dto.response.BranchDetailRes;
 import com.dto.response.GeneralResponse;
@@ -54,14 +54,14 @@ public class TripControllerImpl implements TripController {
 
     @Override
     @PostMapping("/trip/assign/driver")
-    public GeneralResponse assignDriverToTrip(@RequestBody AssignDriverReq assignDriverReq) {
+    public GeneralResponse assignDriverToTrip(@RequestBody TripDetailReq assignDriverReq) {
         return tripBusiness.assignDriverToTrip(assignDriverReq);
     }
 
     @Override
     @PostMapping("/trip/cancel")
-    public GeneralResponse cancelTrip(@RequestBody CancelTripReq cancelTripReq) {
-        return tripBusiness.cancelTrip(cancelTripReq);
+    public GeneralResponse cancelTrip(@RequestBody TripDetailReq cancelTripReq) {
+        return null; // tripBusiness.cancelTrip(cancelTripReq);
     }
 
     @Override
